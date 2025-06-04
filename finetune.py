@@ -109,7 +109,7 @@ def finetune():
         test_loss_list.append(test_loss)
         
         logging.info(f'Epoch: {epoch + 1:3d} | train loss: {train_loss:.6f} | test loss: {test_loss:.6f}')
-        if (epoch+1) % args.save_every == 0:
+        if (epoch+1) % args.save_every == 0 or (epoch+1) == args.epoch:
             torch.save(model.state_dict(), f'./ckpt/finetune/{epoch+1}epoch.pth')
             
     loss_figure(
