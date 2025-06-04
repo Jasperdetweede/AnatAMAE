@@ -1,0 +1,12 @@
+2025-06-04 13:17:09 INFO: Start finetuning:
+2025-06-04 13:17:09 INFO: Arguments: Namespace(epoch=3, batch_size=256, lr=0.001, num_classes=10, model_path='ckpt/preatrain/3epoch.pth', save_every=10, seed=0)
+2025-06-04 13:17:09 INFO: Using device: cuda:0
+2025-06-04 13:17:49 INFO: Start finetuning:
+2025-06-04 13:17:49 INFO: Arguments: Namespace(epoch=3, batch_size=256, lr=0.001, num_classes=10, model_path='ckpt/pretrain/3epoch.pth', save_every=10, seed=0)
+2025-06-04 13:17:49 INFO: Using device: cuda:0
+2025-06-04 13:29:06 INFO: Start finetuning:
+2025-06-04 13:29:06 INFO: Arguments: Namespace(epoch=3, batch_size=256, lr=0.001, num_classes=10, model_path='ckpt/pretrain/3epoch.pth', save_every=10, seed=0)
+2025-06-04 13:29:06 INFO: Using device: cuda:0
+2025-06-04 13:29:22 INFO: Epoch:   1 | train loss: 2.127827 | test loss: 0.950424
+2025-06-04 13:29:32 INFO: Epoch:   2 | train loss: 0.904188 | test loss: 0.831496
+2025-06-04 13:29:42 INFO: Epoch:   3 | train loss: 0.820176 | test loss: 0.782203
