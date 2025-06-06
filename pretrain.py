@@ -76,7 +76,7 @@ def test(
                         [
                             test_data[j:j+1],
                             mask_data[j:j+1], 
-                            decoded.view(batch_size, 1, 28, 28)[j:j+1]
+                            decoded.view(batch_size, 3, 32, 32)[j:j+1]
                         ]
                     )
                     compare.append(compare_img)
@@ -106,8 +106,6 @@ def pretrain():
     logging = set_logger('pretrain')
     logging.info(f'Start training:')
     logging.info(f'Arguments: {args}')
-
-    print(torch.cuda.is_available())
     
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     logging.info(f'Using device: {device}')

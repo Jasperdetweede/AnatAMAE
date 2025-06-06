@@ -6,9 +6,11 @@ from torchvision import datasets, transforms
 def getdataset(batch_size):
     if not os.path.exists('./data'):
         os.mkdir('./data')
-        
+
+    print("Loading dataset, requires download the first time.")
+    
     train_loader = torch.utils.data.DataLoader(
-        datasets.MNIST(
+        datasets.CIFAR10(
             './data', 
             train=True, 
             download=True, 
@@ -18,7 +20,7 @@ def getdataset(batch_size):
         shuffle=True
     )
     test_loader = torch.utils.data.DataLoader(
-        datasets.MNIST(
+        datasets.CIFAR10(
             './data', 
             train=False, 
             download=True, 
@@ -27,7 +29,8 @@ def getdataset(batch_size):
         batch_size=batch_size, 
         shuffle=True
     )
-    
+
+    print("Finished loading dataset")
     return train_loader, test_loader
 
 

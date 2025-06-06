@@ -21,29 +21,29 @@ class AutoEncoder(nn.Module):
     def __init__(self):
         super(AutoEncoder, self).__init__()
         self.encoder = nn.Sequential(
-            nn.Conv2d(3, 16, 3, stride=1, padding=1),  # b, 16, 32, 32
-            nn.ReLU(inplace=True),
+            nn.Conv2d(3, 16, 3, stride=1, padding=1),  # b, 16, 28, 28
+            nn.ReLU(True),
             ResidualBlock(16),
-            nn.Conv2d(16, 32, 3, stride=2, padding=1),  # b, 32, 16, 16
-            nn.ReLU(inplace=True),
-            ResidualBlock(32),
-            nn.Conv2d(32, 64, 3, stride=2, padding=1),  # b, 64, 8, 8
-            nn.ReLU(inplace=True),
-            ResidualBlock(64),
-            nn.Conv2d(64, 128, 3, stride=2, padding=1),  # b, 128, 4, 4
-            nn.ReLU(inplace=True),
+            nn.Conv2d(16, 16, 3, stride=3, padding=1),  # b, 16, 10, 10
+            nn.ReLU(True),
+            nn.MaxPool2d(2, stride=2),  # b, 16, 5, 5
+            ResidualBlock(16),
+            nn.Conv2d(16, 12, 3, stride=1, padding=1),  # b, 12, 5, 5
+            nn.ReLU(True),
+            nn.Conv2d(12, 8, 3, stride=2, padding=1),  # b, 8, 3, 3
+            nn.ReLU(True),
+            nn.MaxPool2d(2, stride=1)  # b, 8, 2, 2
         )
-
         self.decoder = nn.Sequential(
-            nn.ConvTranspose2d(128, 64, 4, stride=2, padding=1),  # b, 64, 8, 8
-            nn.ReLU(inplace=True),
-            ResidualBlock(64),
-            nn.ConvTranspose2d(64, 32, 4, stride=2, padding=1),  # b, 32, 16, 16
-            nn.ReLU(inplace=True),
-            ResidualBlock(32),
-            nn.ConvTranspose2d(32, 16, 4, stride=2, padding=1),  # b, 16, 32, 32
-            nn.ReLU(inplace=True),
-            nn.Conv2d(16, 3, 3, stride=1, padding=1),  # b, 3, 32, 32
+            nn.ConvTranspose2d(8, 8, 3, stride=2, padding=1),  # b, 8, 3, 3
+            nn.ReLU(True),
+            ResidualBlock(8),
+            nn.ConvTranspose2d(8, 12, 3, stride=2, padding=1),  # b, 12, 5, 5
+            nn.ReLU(True),
+            nn.ConvTranspose2d(12, 16, 2, stride=2),  # b, 16, 10, 10
+            nn.ReLU(True),
+            ResidualBlock(16),
+            nn.ConvTranspose2d(16, 1, 3, stride=3, padding=1),  # b, 1, 28, 28
             nn.Sigmoid()
         )
 
@@ -54,14 +54,14 @@ class AutoEncoder(nn.Module):
 
     
 class Classifier(nn.Module):
-    def __init__(self, encoder, num_classes=10):
+    def __init__(self, encoder, num_classes):
         super(Classifier, self).__init__()
+        dim = 8*2*2 # 8*2*2 is the output shape of encoder
         self.encoder = encoder
-        self.flatten_dim = 128 * 4 * 4  # Output shape from encoder
         self.classifier = nn.Sequential(
-            nn.Linear(self.flatten_dim, 256),
-            nn.ReLU(inplace=True),
-            nn.Linear(256, num_classes)
+            nn.Linear(dim, dim),  
+            nn.ReLU(True),
+            nn.Linear(dim, num_classes),
         )
 
     def forward(self, x):
