@@ -340,13 +340,14 @@ def find_valid_images(images_root, pointfiles_root, targets_path):
 ############################
 
 #  main preprocessing function
-def preprocess(images_path, pointfiles_path, dataset_out_path, targets_path, output_size, crop_size, target_spacing=0.1) -> dict:
+def preprocess(images_path, pointfiles_path, dataset_out_path, targets_path, split_path, output_size, crop_size, target_spacing=0.1) -> dict:
 
     if not os.path.exists(dataset_out_path):
         os.makedirs(dataset_out_path)
         
     # Add metadata file and define patients folder
     add_meta_file(dataset_out_path, output_size, crop_size, target_spacing)
+    shutil.copy(split_path, dataset_out_path)
     shutil.copy(targets_path, dataset_out_path)
     output_path = os.path.join(dataset_out_path, "patients")
 
@@ -376,7 +377,8 @@ if __name__ == "__main__":
     pointfiles_path = "check_raw/pointfiles"
     dataset_out_path = "data/check"
     targets_path = "check_raw/targets.json"
+    split_path = "check_raw/train_test_val_split.txt"
     output_size = 256
     crop_size = 1024
 
-    crops = preprocess(images_path, pointfiles_path, dataset_out_path, targets_path, output_size, crop_size)
+    crops = preprocess(images_path, pointfiles_path, dataset_out_path, targets_path, split_path, output_size, crop_size)

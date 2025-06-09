@@ -76,6 +76,7 @@ class CheckDataset(Dataset):
 
         # Load image
         arr = np.load(sample['image_path'])            # (H,W) float32
+        arr = (arr - arr.min()) / (arr.max() - arr.min()) # normalize range of DICOM to [0,1]
         img = torch.from_numpy(arr).unsqueeze(0)       # [1,H,W]
 
         # Load metadata and filter in-frame points
@@ -83,7 +84,6 @@ class CheckDataset(Dataset):
             meta = json.load(f)
 
         pts = meta['adjusted_points']   # dict: str(idx) -> [x,y]
-        # in_frame = meta['in_frame']     # dict: str(idx) -> bool
 
         # build an (N,2) array of only in-frame points, sorted by idx
         coords = []
@@ -92,44 +92,44 @@ class CheckDataset(Dataset):
                 coords.append([x, y])
         pts_arr = torch.tensor(coords, dtype=torch.float32)  # [N,2]
 
-        # 3. Optional transform on image
+        # Optional transform on image
         if self.transform is not None:
             img = self.transform(img)
 
         return {
             'image':  img,          # FloatTensor [1,H,W]
             'points': pts_arr,      # FloatTensor [N,2]
-            'target': sample['target'],  # dict with jsn_*, osteo_*, kellgren
+            'target': sample['target'],  # boolean
         }
 
-    def _augment_rotate(self, img: torch.FloatTensor, pts: torch.FloatTensor):
-        """
-        Random rotation between -10° and +10° around image center.
-        Rotates both img (on CPU) and updates pts accordingly.
-        """
-        angle = float(torch.randint(-10, 11, (1,)).item())  # degrees
-        # Convert to skimage’s expectation: img HWC, normalize to [0,1]
-        arr = img.squeeze(0).numpy()
-        center = (np.array(arr.shape[::-1]) - 1) / 2  # (x_center, y_center)
+    # def _augment_rotate(self, img: torch.FloatTensor, pts: torch.FloatTensor):
+    #     """
+    #     Random rotation between -10° and +10° around image center.
+    #     Rotates both img (on CPU) and updates pts accordingly.
+    #     """
+    #     angle = float(torch.randint(-10, 11, (1,)).item())  # degrees
+    #     # Convert to skimage’s expectation: img HWC, normalize to [0,1]
+    #     arr = img.squeeze(0).numpy()
+    #     center = (np.array(arr.shape[::-1]) - 1) / 2  # (x_center, y_center)
 
-        # Rotate image
-        rot_img = skimage.transform.rotate(
-            arr,
-            angle=angle,
-            center=center,
-            mode='constant',
-            cval=arr.min(),
-            preserve_range=True
-        ).astype(np.float32)
-        rot_img = torch.from_numpy(rot_img).unsqueeze(0)
+    #     # Rotate image
+    #     rot_img = skimage.transform.rotate(
+    #         arr,
+    #         angle=angle,
+    #         center=center,
+    #         mode='constant',
+    #         cval=arr.min(),
+    #         preserve_range=True
+    #     ).astype(np.float32)
+    #     rot_img = torch.from_numpy(rot_img).unsqueeze(0)
 
-        # Rotate points
-        theta = np.deg2rad(angle)
-        R = np.array([[np.cos(theta), -np.sin(theta)],
-                    [np.sin(theta),  np.cos(theta)]])
-        pts_np = pts.numpy()  # [N,2]
-        # shift to origin, rotate, shift back
-        shifted = pts_np - center[None, :]
-        rotated = shifted.dot(R.T) + center[None, :]
+    #     # Rotate points
+    #     theta = np.deg2rad(angle)
+    #     R = np.array([[np.cos(theta), -np.sin(theta)],
+    #                 [np.sin(theta),  np.cos(theta)]])
+    #     pts_np = pts.numpy()  # [N,2]
+    #     # shift to origin, rotate, shift back
+    #     shifted = pts_np - center[None, :]
+    #     rotated = shifted.dot(R.T) + center[None, :]
 
-        return rot_img, torch.from_numpy(rotated).float()
+    #     return rot_img, torch.from_numpy(rotated).float()

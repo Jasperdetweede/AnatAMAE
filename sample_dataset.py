@@ -1,28 +1,30 @@
-from matplotlib import transforms
 import matplotlib.pyplot as plt
 import torch
-from checkDataset import CheckDataset
-from datasets import getDataset
+from datasets import getdataset, mask_batch
 
 
 def sample_and_plot_from_loader(
-    batch_size: int = 4,
-    num_samples: int = 4,
+    dataloader: torch.utils.data.DataLoader, 
+    mask_params: dict,
+    num_samples: int = 1,
+    masked: bool = False
 ):
     """
     Loads CheckDataset, samples `num_samples` images from a DataLoader, and
     plots them with their numbered in-frame points.
     """
-    loader = getDataset(batch_size)
 
-    iterator = iter(loader)
+    iterator = iter(dataloader)
 
     for c in range(num_samples):
-        sample = next(iterator)
+        batch = next(iterator)
 
-        images  = sample["image"]  # [B, 1, H, W]
-        points  = sample["points"] # list of [N_i, 2]
-        targets = sample["target"]
+        if masked: 
+            batch = mask_batch(batch, mask_params)
+
+        images  = batch["image"]  # [B, 1, H, W]
+        points  = batch["points"] # list of [N_i, 2]
+        targets = batch["target"]
 
         for i in range(len(images)):
             img = images[i].squeeze(0).numpy()  # [H, W]
@@ -37,11 +39,34 @@ def sample_and_plot_from_loader(
                 plt.scatter(x, y, c="red", s=15)
                 plt.text(x+2, y, str(j), fontsize=6, color="yellow")
 
+            # Ignore masks while calculating intensity (This should not be done in the model)
+            nonzero = img[img > -1]
+            vmin = nonzero.min() if nonzero.size > 0 else 0
+            vmax = nonzero.max() if nonzero.size > 0 else 1
+            plt.imshow(img, cmap="gray", vmin=vmin, vmax=vmax)
+
             plt.show(block=False)
-            
+
+
 if __name__ == "__main__":
-    sample_and_plot_from_loader(
-        batch_size=1,
-        num_samples=4
-    )
+
+    print_masked = False
+    dataloader = getdataset(1)
+    patch_size = 16
+    mask_rate = 0.75
+    num_samples = 2
+    
+    _, height, width = dataloader.dataset[0]["image"].shape
+    num_patches = height // patch_size * width // patch_size
+    num_masked = int(num_patches * mask_rate)
+
+    mask_params = {
+        'height': height,
+        'width': width,
+        'num_patches': num_patches,
+        'num_masked': num_masked,
+        'patch_size': patch_size 
+    }
+
+    sample_and_plot_from_loader(dataloader, mask_params, num_samples, print_masked)
     input("Press key to close windows and quit program")

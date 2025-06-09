@@ -2,6 +2,5 @@
 .venv/
 __pycache__/
 data/
-/check_raw
-/check_raw_real
+/check_raw*
 /old_model_storage

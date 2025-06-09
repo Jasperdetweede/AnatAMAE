@@ -2,6 +2,7 @@ import torch
 import os
 from torchvision import datasets, transforms
 from checkDataset import CheckDataset
+import random
 
 
 def getbasicdataset(batch_size):
@@ -34,7 +35,7 @@ def getbasicdataset(batch_size):
     print("Finished loading dataset")
     return train_loader, test_loader
 
-def getDataset(batch_size, augment=False):
+def getdataset(batch_size, augment=False):
     print("Loading dataset")
 
     dataset = CheckDataset(
@@ -55,26 +56,45 @@ def getDataset(batch_size, augment=False):
     print("Finished loading dataset")
     return data_loader 
 
+def mask_batch(batch, mask_params):
+    """
+    Apply random masking to each image in a batch.
 
-def mask_image(data_loader, mask_params, patch_size):
+    Args:
+        batch: dict with keys "image", "target", optionally "points"
+        mask_params: dict with keys 'height', 'width', 'num_masked'
+        patch_size: int, patch size to mask
+
+    Returns:
+        A new dict like `batch` but with masked "image" values
+    """
+    
+    images = batch["image"].clone()  # Clone to avoid modifying original
+    B, C, H, W = images.shape
+
     height = mask_params['height']
     width = mask_params['width']
-    mask_id = mask_params['mask_id']
-    mask_data_loader = []
-    copy_data_loader = []
-    # Get the mask positions
-    mask_positions = [(i // (height // patch_size), i % (width // patch_size)) for i in mask_id]
+    num_masked = mask_params['num_masked']
+    patch_size = mask_params['patch_size']
 
-    for data, label in data_loader:
-        masked_image = data.clone()
+    assert height % patch_size == 0 and width % patch_size == 0, "Patch size must divide image dimensions"
+
+    n_cols = width // patch_size
+    n_rows = height // patch_size
+    n_patches = n_rows * n_cols
+
+    for i in range(B):
+        mask_id = random.sample(range(n_patches), num_masked)
+        mask_positions = [(i // n_rows, i % n_cols) for i in mask_id] 
+
         for row, col in mask_positions:
-            masked_image[
-                :, 
-                :, 
-                row * patch_size:(row + 1) * patch_size, 
-                col * patch_size:(col + 1) * patch_size
-            ] = 0
-        mask_data_loader.append((masked_image, label))
-        copy_data_loader.append((data, label))
+            images[i, :, 
+                   row * patch_size : (row + 1) * patch_size,
+                   col * patch_size : (col + 1) * patch_size] = -1
 
-    return mask_data_loader, copy_data_loader
+    # Return a new batch dict
+    return {
+        "image": images,
+        "target": batch["target"],
+        "points": batch["points"]
+    }

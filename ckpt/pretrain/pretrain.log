@@ -1,0 +1,318 @@
+2025-06-09 12:50:52 INFO: Start training:
+2025-06-09 12:50:52 INFO: Arguments: Namespace(epoch=100, batch_size=256, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.75, save_every=10, seed=0)
+2025-06-09 12:50:52 INFO: Using device: cuda:0
+2025-06-09 12:54:09 INFO: Start training:
+2025-06-09 12:54:09 INFO: Arguments: Namespace(epoch=100, batch_size=256, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.75, save_every=10, seed=0)
+2025-06-09 12:54:09 INFO: Using device: cuda:0
+2025-06-09 12:55:12 INFO: Start training:
+2025-06-09 12:55:12 INFO: Arguments: Namespace(epoch=100, batch_size=256, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.75, save_every=10, seed=0)
+2025-06-09 12:55:12 INFO: Using device: cuda:0
+2025-06-09 12:56:00 INFO: Start training:
+2025-06-09 12:56:00 INFO: Arguments: Namespace(epoch=100, batch_size=256, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.75, save_every=10, seed=0)
+2025-06-09 12:56:00 INFO: Using device: cuda:0
+2025-06-09 12:59:12 INFO: Start training:
+2025-06-09 12:59:12 INFO: Arguments: Namespace(epoch=100, batch_size=256, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.75, save_every=10, seed=0)
+2025-06-09 12:59:12 INFO: Using device: cuda:0
+2025-06-09 18:42:38 INFO: Start training:
+2025-06-09 18:42:38 INFO: Arguments: Namespace(epoch=100, batch_size=64, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.75, save_every=10, seed=0)
+2025-06-09 18:42:38 INFO: Using device: cuda:0
+2025-06-09 18:46:41 INFO: Start training:
+2025-06-09 18:46:41 INFO: Arguments: Namespace(epoch=100, batch_size=64, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.75, save_every=10, seed=0)
+2025-06-09 18:46:41 INFO: Using device: cuda:0
+2025-06-09 18:50:29 INFO: Start training:
+2025-06-09 18:50:29 INFO: Arguments: Namespace(epoch=100, batch_size=64, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.75, save_every=10, seed=0)
+2025-06-09 18:50:29 INFO: Using device: cuda:0
+2025-06-09 18:53:45 INFO: Start training:
+2025-06-09 18:53:45 INFO: Arguments: Namespace(epoch=100, batch_size=64, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.75, save_every=10, seed=0)
+2025-06-09 18:53:45 INFO: Using device: cuda:0
+2025-06-09 18:54:34 INFO: Start training:
+2025-06-09 18:54:34 INFO: Arguments: Namespace(epoch=100, batch_size=64, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.75, save_every=10, seed=0)
+2025-06-09 18:54:34 INFO: Using device: cuda
+2025-06-09 18:57:54 INFO: Start training:
+2025-06-09 18:57:54 INFO: Arguments: Namespace(epoch=100, batch_size=64, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.75, save_every=10, seed=0)
+2025-06-09 18:57:54 INFO: Using device: cuda:0
+2025-06-09 19:02:16 INFO: Start training:
+2025-06-09 19:02:16 INFO: Arguments: Namespace(epoch=100, batch_size=64, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.75, save_every=10, seed=0)
+2025-06-09 19:02:16 INFO: Using device: cuda:0
+2025-06-09 19:02:37 INFO: Epoch:   1 | train loss: 1381714.500000 | test loss: 1381601.250000
+2025-06-09 19:02:53 INFO: Epoch:   2 | train loss: 1381578.625000 | test loss: 1381587.750000
+2025-06-09 19:03:10 INFO: Epoch:   3 | train loss: 1381445.750000 | test loss: 1381617.875000
+2025-06-09 19:03:28 INFO: Epoch:   4 | train loss: 1381313.500000 | test loss: 1381631.125000
+2025-06-09 19:03:46 INFO: Epoch:   5 | train loss: 1381206.500000 | test loss: 1381579.625000
+2025-06-09 19:04:07 INFO: Epoch:   6 | train loss: 1381140.375000 | test loss: 1381490.750000
+2025-06-09 19:04:31 INFO: Epoch:   7 | train loss: 1381081.750000 | test loss: 1381427.125000
+2025-06-09 19:05:03 INFO: Epoch:   8 | train loss: 1381031.875000 | test loss: 1381377.000000
+2025-06-09 19:05:27 INFO: Epoch:   9 | train loss: 1380991.250000 | test loss: 1381348.125000
+2025-06-09 19:05:45 INFO: Epoch:  10 | train loss: 1380958.750000 | test loss: 1381320.500000
+2025-06-09 19:06:03 INFO: Epoch:  11 | train loss: 1380934.750000 | test loss: 1381288.500000
+2025-06-09 19:06:22 INFO: Epoch:  12 | train loss: 1380906.750000 | test loss: 1381269.250000
+2025-06-09 19:07:53 INFO: Start training:
+2025-06-09 19:07:53 INFO: Arguments: Namespace(epoch=10, batch_size=6, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.5, save_every=2, seed=0)
+2025-06-09 19:07:53 INFO: Using device: cuda:0
+2025-06-09 19:08:12 INFO: Epoch:   1 | train loss: 1381714.000000 | test loss: 1381601.125000
+2025-06-09 19:08:27 INFO: Epoch:   2 | train loss: 1381581.250000 | test loss: 1381584.125000
+2025-06-09 19:08:44 INFO: Epoch:   3 | train loss: 1381475.250000 | test loss: 1381629.750000
+2025-06-09 19:09:01 INFO: Epoch:   4 | train loss: 1381326.875000 | test loss: 1381663.000000
+2025-06-09 19:09:17 INFO: Epoch:   5 | train loss: 1381234.875000 | test loss: 1381614.875000
+2025-06-09 19:09:33 INFO: Epoch:   6 | train loss: 1381157.375000 | test loss: 1381490.125000
+2025-06-09 19:09:51 INFO: Epoch:   7 | train loss: 1381102.500000 | test loss: 1381377.000000
+2025-06-09 19:10:10 INFO: Epoch:   8 | train loss: 1381047.500000 | test loss: 1381321.250000
+2025-06-09 19:10:29 INFO: Epoch:   9 | train loss: 1381007.250000 | test loss: 1381316.750000
+2025-06-09 19:10:48 INFO: Epoch:  10 | train loss: 1380970.750000 | test loss: 1381291.500000
+2025-06-09 21:24:47 INFO: Start training:
+2025-06-09 21:24:47 INFO: Arguments: Namespace(epoch=100, batch_size=64, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.75, save_every=10, seed=0)
+2025-06-09 21:24:47 INFO: Using device: cuda:0
+2025-06-09 21:25:24 INFO: Epoch:   1 | train loss: 1381714.500000 | test loss: 1381601.250000
+2025-06-09 21:25:51 INFO: Start training:
+2025-06-09 21:25:51 INFO: Arguments: Namespace(epoch=1, batch_size=1, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.5, save_every=1, seed=0)
+2025-06-09 21:25:51 INFO: Using device: cuda:0
+2025-06-09 21:26:25 INFO: Epoch:   1 | train loss: 1381420.187500 | test loss: 1381510.083333
+2025-06-09 21:26:48 INFO: Start training:
+2025-06-09 21:26:48 INFO: Arguments: Namespace(epoch=1, batch_size=1, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.5, save_every=1, seed=0)
+2025-06-09 21:26:48 INFO: Using device: cuda:0
+2025-06-09 21:27:30 INFO: Epoch:   1 | train loss: 1381420.187500 | test loss: 1381510.083333
+2025-06-09 21:34:53 INFO: Start training:
+2025-06-09 21:34:53 INFO: Arguments: Namespace(epoch=1, batch_size=1, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.5, save_every=1, seed=0)
+2025-06-09 21:34:53 INFO: Using device: cuda:0
+2025-06-09 21:35:58 INFO: Start training:
+2025-06-09 21:35:58 INFO: Arguments: Namespace(epoch=1, batch_size=1, lr=0.001, show_per_epoch=10, show_img_count=2, patch_size=2, mask_rate=0.5, save_every=1, seed=0)
+2025-06-09 21:35:58 INFO: Using device: cuda:0
+2025-06-09 21:36:19 INFO: Epoch:   1 | train loss: 1381420.187500 | test loss: 1381509.812500
+2025-06-09 21:37:25 INFO: Start training:
+2025-06-09 21:37:25 INFO: Arguments: Namespace(epoch=1, batch_size=1, lr=0.001, show_per_epoch=1, show_img_count=2, patch_size=2, mask_rate=0.5, save_every=1, seed=0)
+2025-06-09 21:37:25 INFO: Using device: cuda:0
+2025-06-09 21:37:43 INFO: Epoch:   1 | train loss: 1381420.187500 | test loss: 1381509.812500
+2025-06-09 21:51:30 INFO: Start training:
+2025-06-09 21:51:30 INFO: Arguments: Namespace(epoch=1, batch_size=1, lr=0.001, show_per_epoch=1, show_img_count=2, patch_size=2, mask_rate=0.5, save_every=1, seed=0)
+2025-06-09 21:51:30 INFO: Using device: cuda:0
+2025-06-09 21:51:51 INFO: Epoch:   1 | train loss: 1381420.187500 | test loss: 1381509.812500
+2025-06-09 21:54:47 INFO: Start training:
+2025-06-09 21:54:47 INFO: Arguments: Namespace(epoch=1, batch_size=1, lr=0.001, show_per_epoch=1, show_img_count=2, patch_size=2, mask_rate=0.5, save_every=1, seed=0)
+2025-06-09 21:54:47 INFO: Using device: cuda:0
+2025-06-09 21:57:57 INFO: Start training:
+2025-06-09 21:57:57 INFO: Arguments: Namespace(epoch=1, batch_size=1, lr=0.001, show_per_epoch=1, show_img_count=2, patch_size=2, mask_rate=0.5, save_every=1, seed=0)
+2025-06-09 21:57:57 INFO: Using device: cuda:0
+2025-06-09 21:58:21 INFO: Epoch:   1 | train loss: 1381420.187500 | test loss: 1381509.812500
+2025-06-09 22:02:18 INFO: Start training:
+2025-06-09 22:02:18 INFO: Arguments: Namespace(epoch=1, batch_size=1, lr=0.001, show_per_epoch=1, show_img_count=2, patch_size=2, mask_rate=0.5, save_every=1, seed=0)
+2025-06-09 22:02:18 INFO: Using device: cuda:0
+2025-06-09 22:03:32 INFO: Epoch:   1 | train loss: 0.295057 | test loss: 0.314148
+2025-06-09 22:10:42 INFO: Start training:
+2025-06-09 22:10:42 INFO: Arguments: Namespace(epoch=10, batch_size=3, lr=0.001, show_per_epoch=1, show_img_count=2, patch_size=2, mask_rate=0.5, save_every=1, seed=0)
+2025-06-09 22:10:42 INFO: Using device: cuda:0
+2025-06-09 22:11:01 INFO: Epoch:   1 | train loss: 0.431709 | test loss: 0.402418
+2025-06-09 22:11:17 INFO: Epoch:   2 | train loss: 0.264062 | test loss: 0.368938
+2025-06-09 22:11:38 INFO: Epoch:   3 | train loss: 0.206094 | test loss: 0.320481
+2025-06-09 22:12:04 INFO: Epoch:   4 | train loss: 0.176626 | test loss: 0.267088
+2025-06-09 22:12:21 INFO: Epoch:   5 | train loss: 0.158146 | test loss: 0.223191
+2025-06-09 22:12:38 INFO: Epoch:   6 | train loss: 0.145261 | test loss: 0.200122
+2025-06-09 22:12:54 INFO: Epoch:   7 | train loss: 0.135859 | test loss: 0.190139
+2025-06-09 22:13:11 INFO: Epoch:   8 | train loss: 0.128708 | test loss: 0.186359
+2025-06-09 22:13:27 INFO: Epoch:   9 | train loss: 0.123647 | test loss: 0.185233
+2025-06-09 22:13:44 INFO: Epoch:  10 | train loss: 0.119784 | test loss: 0.185113
+2025-06-09 22:21:09 INFO: Start training:
+2025-06-09 22:21:09 INFO: Arguments: Namespace(epoch=100, batch_size=3, lr=0.001, show_per_epoch=1, show_img_count=2, patch_size=2, mask_rate=0.5, save_every=1, seed=0)
+2025-06-09 22:21:09 INFO: Using device: cuda:0
+2025-06-09 22:21:30 INFO: Epoch:   1 | train loss: 0.431709 | test loss: 0.402418
+2025-06-09 22:21:45 INFO: Epoch:   2 | train loss: 0.264062 | test loss: 0.368938
+2025-06-09 22:22:04 INFO: Epoch:   3 | train loss: 0.206094 | test loss: 0.320481
+2025-06-09 22:22:25 INFO: Epoch:   4 | train loss: 0.176626 | test loss: 0.267088
+2025-06-09 22:22:44 INFO: Epoch:   5 | train loss: 0.158146 | test loss: 0.223191
+2025-06-09 22:23:02 INFO: Epoch:   6 | train loss: 0.145261 | test loss: 0.200122
+2025-06-09 22:23:20 INFO: Epoch:   7 | train loss: 0.135859 | test loss: 0.190139
+2025-06-09 22:23:39 INFO: Epoch:   8 | train loss: 0.128708 | test loss: 0.186359
+2025-06-09 22:23:58 INFO: Epoch:   9 | train loss: 0.123647 | test loss: 0.185233
+2025-06-09 22:24:17 INFO: Epoch:  10 | train loss: 0.119784 | test loss: 0.185113
+2025-06-09 22:24:33 INFO: Epoch:  11 | train loss: 0.118105 | test loss: 0.184899
+2025-06-09 22:24:50 INFO: Epoch:  12 | train loss: 0.113782 | test loss: 0.182340
+2025-06-09 22:25:06 INFO: Epoch:  13 | train loss: 0.112072 | test loss: 0.170664
+2025-06-09 22:25:22 INFO: Epoch:  14 | train loss: 0.110156 | test loss: 0.153542
+2025-06-09 22:25:39 INFO: Epoch:  15 | train loss: 0.107439 | test loss: 0.134274
+2025-06-09 22:25:55 INFO: Epoch:  16 | train loss: 0.105789 | test loss: 0.122058
+2025-06-09 22:26:12 INFO: Epoch:  17 | train loss: 0.105045 | test loss: 0.116912
+2025-06-09 22:26:29 INFO: Epoch:  18 | train loss: 0.103023 | test loss: 0.113629
+2025-06-09 22:26:47 INFO: Epoch:  19 | train loss: 0.103042 | test loss: 0.110054
+2025-06-09 22:27:04 INFO: Epoch:  20 | train loss: 0.102581 | test loss: 0.105571
+2025-06-09 22:27:21 INFO: Epoch:  21 | train loss: 0.100906 | test loss: 0.104821
+2025-06-09 22:27:37 INFO: Epoch:  22 | train loss: 0.100399 | test loss: 0.104793
+2025-06-09 22:27:56 INFO: Epoch:  23 | train loss: 0.101413 | test loss: 0.100587
+2025-06-09 22:28:14 INFO: Epoch:  24 | train loss: 0.098882 | test loss: 0.101127
+2025-06-09 22:28:30 INFO: Epoch:  25 | train loss: 0.100433 | test loss: 0.102094
+2025-06-09 22:28:47 INFO: Epoch:  26 | train loss: 0.098145 | test loss: 0.099590
+2025-06-09 22:29:03 INFO: Epoch:  27 | train loss: 0.097459 | test loss: 0.098433
+2025-06-09 22:29:20 INFO: Epoch:  28 | train loss: 0.097748 | test loss: 0.099304
+2025-06-09 22:29:36 INFO: Epoch:  29 | train loss: 0.097065 | test loss: 0.097882
+2025-06-09 22:29:53 INFO: Epoch:  30 | train loss: 0.097608 | test loss: 0.095776
+2025-06-09 22:30:09 INFO: Epoch:  31 | train loss: 0.096924 | test loss: 0.097245
+2025-06-09 22:30:26 INFO: Epoch:  32 | train loss: 0.095849 | test loss: 0.096991
+2025-06-09 22:30:42 INFO: Epoch:  33 | train loss: 0.095991 | test loss: 0.095603
+2025-06-09 22:30:58 INFO: Epoch:  34 | train loss: 0.096346 | test loss: 0.095326
+2025-06-09 22:31:15 INFO: Epoch:  35 | train loss: 0.095026 | test loss: 0.094748
+2025-06-09 22:31:32 INFO: Epoch:  36 | train loss: 0.094801 | test loss: 0.094489
+2025-06-09 22:31:48 INFO: Epoch:  37 | train loss: 0.094603 | test loss: 0.094887
+2025-06-09 22:32:06 INFO: Epoch:  38 | train loss: 0.094259 | test loss: 0.094612
+2025-06-09 22:32:26 INFO: Epoch:  39 | train loss: 0.093836 | test loss: 0.094055
+2025-06-09 22:32:44 INFO: Epoch:  40 | train loss: 0.094089 | test loss: 0.094010
+2025-06-09 22:33:01 INFO: Epoch:  41 | train loss: 0.093347 | test loss: 0.094374
+2025-06-09 22:33:18 INFO: Epoch:  42 | train loss: 0.094954 | test loss: 0.094238
+2025-06-09 22:33:35 INFO: Epoch:  43 | train loss: 0.093015 | test loss: 0.093571
+2025-06-09 22:33:51 INFO: Epoch:  44 | train loss: 0.093127 | test loss: 0.093149
+2025-06-09 22:34:08 INFO: Epoch:  45 | train loss: 0.092736 | test loss: 0.093848
+2025-06-09 22:34:24 INFO: Epoch:  46 | train loss: 0.092931 | test loss: 0.093500
+2025-06-09 22:34:41 INFO: Epoch:  47 | train loss: 0.093355 | test loss: 0.092681
+2025-06-09 22:34:57 INFO: Epoch:  48 | train loss: 0.093434 | test loss: 0.093077
+2025-06-09 22:35:14 INFO: Epoch:  49 | train loss: 0.092117 | test loss: 0.093771
+2025-06-09 22:35:30 INFO: Epoch:  50 | train loss: 0.092874 | test loss: 0.093035
+2025-06-09 22:35:47 INFO: Epoch:  51 | train loss: 0.092590 | test loss: 0.092327
+2025-06-09 22:36:03 INFO: Epoch:  52 | train loss: 0.092007 | test loss: 0.092046
+2025-06-09 22:36:20 INFO: Epoch:  53 | train loss: 0.091922 | test loss: 0.092919
+2025-06-09 22:36:36 INFO: Epoch:  54 | train loss: 0.091845 | test loss: 0.091732
+2025-06-09 22:36:53 INFO: Epoch:  55 | train loss: 0.092542 | test loss: 0.092347
+2025-06-09 22:37:10 INFO: Epoch:  56 | train loss: 0.091888 | test loss: 0.091104
+2025-06-09 22:37:26 INFO: Epoch:  57 | train loss: 0.092735 | test loss: 0.093011
+2025-06-09 22:37:43 INFO: Epoch:  58 | train loss: 0.092330 | test loss: 0.091770
+2025-06-09 22:37:59 INFO: Epoch:  59 | train loss: 0.091375 | test loss: 0.091686
+2025-06-09 22:38:16 INFO: Epoch:  60 | train loss: 0.092476 | test loss: 0.091106
+2025-06-09 22:38:33 INFO: Epoch:  61 | train loss: 0.091053 | test loss: 0.090873
+2025-06-09 22:38:49 INFO: Epoch:  62 | train loss: 0.090948 | test loss: 0.091561
+2025-06-09 22:39:05 INFO: Epoch:  63 | train loss: 0.090745 | test loss: 0.091781
+2025-06-09 22:39:21 INFO: Epoch:  64 | train loss: 0.091938 | test loss: 0.091301
+2025-06-09 22:39:39 INFO: Epoch:  65 | train loss: 0.091127 | test loss: 0.090648
+2025-06-09 22:39:56 INFO: Epoch:  66 | train loss: 0.090873 | test loss: 0.090638
+2025-06-09 22:40:12 INFO: Epoch:  67 | train loss: 0.091136 | test loss: 0.090557
+2025-06-09 22:40:28 INFO: Epoch:  68 | train loss: 0.090933 | test loss: 0.091543
+2025-06-09 22:40:44 INFO: Epoch:  69 | train loss: 0.090665 | test loss: 0.090795
+2025-06-09 22:41:02 INFO: Epoch:  70 | train loss: 0.092104 | test loss: 0.090756
+2025-06-09 22:41:18 INFO: Epoch:  71 | train loss: 0.090759 | test loss: 0.092029
+2025-06-09 22:41:34 INFO: Epoch:  72 | train loss: 0.090592 | test loss: 0.089999
+2025-06-09 22:41:50 INFO: Epoch:  73 | train loss: 0.090700 | test loss: 0.090420
+2025-06-09 22:42:05 INFO: Epoch:  74 | train loss: 0.090958 | test loss: 0.090126
+2025-06-09 22:42:22 INFO: Epoch:  75 | train loss: 0.090167 | test loss: 0.091646
+2025-06-09 22:42:40 INFO: Epoch:  76 | train loss: 0.090325 | test loss: 0.089798
+2025-06-09 22:42:58 INFO: Epoch:  77 | train loss: 0.090208 | test loss: 0.089804
+2025-06-09 22:43:15 INFO: Epoch:  78 | train loss: 0.090911 | test loss: 0.090244
+2025-06-09 22:43:32 INFO: Epoch:  79 | train loss: 0.090165 | test loss: 0.090072
+2025-06-09 22:43:49 INFO: Epoch:  80 | train loss: 0.090790 | test loss: 0.089505
+2025-06-09 22:44:06 INFO: Epoch:  81 | train loss: 0.090108 | test loss: 0.089957
+2025-06-09 22:44:23 INFO: Epoch:  82 | train loss: 0.089959 | test loss: 0.090049
+2025-06-09 22:44:40 INFO: Epoch:  83 | train loss: 0.091015 | test loss: 0.089612
+2025-06-09 22:44:57 INFO: Epoch:  84 | train loss: 0.090808 | test loss: 0.090449
+2025-06-09 22:45:14 INFO: Epoch:  85 | train loss: 0.090106 | test loss: 0.089539
+2025-06-09 22:45:31 INFO: Epoch:  86 | train loss: 0.089600 | test loss: 0.089413
+2025-06-09 22:45:48 INFO: Epoch:  87 | train loss: 0.089882 | test loss: 0.089370
+2025-06-09 22:46:05 INFO: Epoch:  88 | train loss: 0.090410 | test loss: 0.089406
+2025-06-09 22:46:24 INFO: Epoch:  89 | train loss: 0.090112 | test loss: 0.089530
+2025-06-09 22:46:43 INFO: Epoch:  90 | train loss: 0.090389 | test loss: 0.089415
+2025-06-09 22:47:01 INFO: Epoch:  91 | train loss: 0.089903 | test loss: 0.089217
+2025-06-09 22:47:19 INFO: Epoch:  92 | train loss: 0.089518 | test loss: 0.089517
+2025-06-09 22:47:37 INFO: Epoch:  93 | train loss: 0.089271 | test loss: 0.089075
+2025-06-09 22:47:55 INFO: Epoch:  94 | train loss: 0.089958 | test loss: 0.089290
+2025-06-09 22:48:13 INFO: Epoch:  95 | train loss: 0.089550 | test loss: 0.089021
+2025-06-09 22:48:32 INFO: Epoch:  96 | train loss: 0.089080 | test loss: 0.089080
+2025-06-09 22:48:52 INFO: Epoch:  97 | train loss: 0.090338 | test loss: 0.089046
+2025-06-09 22:49:11 INFO: Epoch:  98 | train loss: 0.089002 | test loss: 0.089121
+2025-06-09 22:49:28 INFO: Epoch:  99 | train loss: 0.089425 | test loss: 0.089613
+2025-06-09 22:49:45 INFO: Epoch: 100 | train loss: 0.089870 | test loss: 0.090132
+2025-06-09 23:06:49 INFO: Start training:
+2025-06-09 23:06:49 INFO: Arguments: Namespace(epoch=100, batch_size=3, lr=0.001, show_per_epoch=2, show_img_count=2, patch_size=16, mask_rate=0.5, save_every=5, seed=0)
+2025-06-09 23:06:49 INFO: Using device: cuda:0
+2025-06-09 23:07:11 INFO: Epoch:   1 | train loss: 0.415646 | test loss: 0.402995
+2025-06-09 23:07:29 INFO: Epoch:   2 | train loss: 0.264167 | test loss: 0.368794
+2025-06-09 23:07:47 INFO: Epoch:   3 | train loss: 0.210649 | test loss: 0.320950
+2025-06-09 23:08:06 INFO: Epoch:   4 | train loss: 0.191248 | test loss: 0.270031
+2025-06-09 23:08:25 INFO: Epoch:   5 | train loss: 0.172337 | test loss: 0.230483
+2025-06-09 23:08:49 INFO: Epoch:   6 | train loss: 0.154449 | test loss: 0.204186
+2025-06-09 23:09:08 INFO: Epoch:   7 | train loss: 0.145175 | test loss: 0.191998
+2025-06-09 23:09:26 INFO: Epoch:   8 | train loss: 0.134644 | test loss: 0.187395
+2025-06-09 23:09:44 INFO: Epoch:   9 | train loss: 0.130669 | test loss: 0.185841
+2025-06-09 23:10:03 INFO: Epoch:  10 | train loss: 0.122386 | test loss: 0.184380
+2025-06-09 23:10:21 INFO: Epoch:  11 | train loss: 0.120180 | test loss: 0.184419
+2025-06-09 23:10:40 INFO: Epoch:  12 | train loss: 0.117188 | test loss: 0.178550
+2025-06-09 23:11:00 INFO: Epoch:  13 | train loss: 0.114817 | test loss: 0.173555
+2025-06-09 23:11:19 INFO: Epoch:  14 | train loss: 0.114059 | test loss: 0.160506
+2025-06-09 23:11:38 INFO: Epoch:  15 | train loss: 0.110366 | test loss: 0.144822
+2025-06-09 23:11:55 INFO: Epoch:  16 | train loss: 0.109340 | test loss: 0.134344
+2025-06-09 23:12:13 INFO: Epoch:  17 | train loss: 0.108726 | test loss: 0.127766
+2025-06-09 23:12:30 INFO: Epoch:  18 | train loss: 0.106567 | test loss: 0.121608
+2025-06-09 23:12:48 INFO: Epoch:  19 | train loss: 0.106882 | test loss: 0.117015
+2025-06-09 23:13:05 INFO: Epoch:  20 | train loss: 0.105569 | test loss: 0.112874
+2025-06-09 23:13:23 INFO: Epoch:  21 | train loss: 0.103485 | test loss: 0.112572
+2025-06-09 23:13:42 INFO: Epoch:  22 | train loss: 0.104008 | test loss: 0.107528
+2025-06-09 23:13:59 INFO: Epoch:  23 | train loss: 0.104595 | test loss: 0.101943
+2025-06-09 23:14:17 INFO: Epoch:  24 | train loss: 0.101974 | test loss: 0.103891
+2025-06-09 23:14:35 INFO: Epoch:  25 | train loss: 0.103346 | test loss: 0.104693
+2025-06-09 23:14:52 INFO: Epoch:  26 | train loss: 0.101158 | test loss: 0.100228
+2025-06-09 23:15:11 INFO: Epoch:  27 | train loss: 0.100564 | test loss: 0.098990
+2025-06-09 23:15:29 INFO: Epoch:  28 | train loss: 0.100855 | test loss: 0.099008
+2025-06-09 23:15:47 INFO: Epoch:  29 | train loss: 0.099108 | test loss: 0.099499
+2025-06-09 23:16:05 INFO: Epoch:  30 | train loss: 0.100525 | test loss: 0.098425
+2025-06-09 23:16:23 INFO: Epoch:  31 | train loss: 0.099504 | test loss: 0.098084
+2025-06-09 23:16:41 INFO: Epoch:  32 | train loss: 0.098080 | test loss: 0.097732
+2025-06-09 23:17:00 INFO: Epoch:  33 | train loss: 0.098264 | test loss: 0.097235
+2025-06-09 23:17:18 INFO: Epoch:  34 | train loss: 0.098884 | test loss: 0.097934
+2025-06-09 23:17:35 INFO: Epoch:  35 | train loss: 0.097220 | test loss: 0.096257
+2025-06-09 23:17:51 INFO: Epoch:  36 | train loss: 0.097517 | test loss: 0.095915
+2025-06-09 23:18:08 INFO: Epoch:  37 | train loss: 0.096964 | test loss: 0.098958
+2025-06-09 23:18:26 INFO: Epoch:  38 | train loss: 0.096174 | test loss: 0.097233
+2025-06-09 23:18:42 INFO: Epoch:  39 | train loss: 0.095960 | test loss: 0.095850
+2025-06-09 23:19:00 INFO: Epoch:  40 | train loss: 0.096342 | test loss: 0.095311
+2025-06-09 23:19:17 INFO: Epoch:  41 | train loss: 0.095559 | test loss: 0.096133
+2025-06-09 23:19:36 INFO: Epoch:  42 | train loss: 0.098286 | test loss: 0.096583
+2025-06-09 23:19:54 INFO: Epoch:  43 | train loss: 0.095114 | test loss: 0.100756
+2025-06-09 23:20:11 INFO: Epoch:  44 | train loss: 0.095368 | test loss: 0.095509
+2025-06-09 23:20:29 INFO: Epoch:  45 | train loss: 0.095170 | test loss: 0.095001
+2025-06-09 23:20:47 INFO: Epoch:  46 | train loss: 0.095061 | test loss: 0.095401
+2025-06-09 23:21:05 INFO: Epoch:  47 | train loss: 0.095305 | test loss: 0.095383
+2025-06-09 23:21:23 INFO: Epoch:  48 | train loss: 0.095933 | test loss: 0.095989
+2025-06-09 23:21:41 INFO: Epoch:  49 | train loss: 0.094068 | test loss: 0.100199
+2025-06-09 23:21:59 INFO: Epoch:  50 | train loss: 0.094112 | test loss: 0.095839
+2025-06-09 23:22:17 INFO: Epoch:  51 | train loss: 0.094614 | test loss: 0.095684
+2025-06-09 23:22:35 INFO: Epoch:  52 | train loss: 0.093839 | test loss: 0.094650
+2025-06-09 23:22:54 INFO: Epoch:  53 | train loss: 0.093428 | test loss: 0.094270
+2025-06-09 23:23:13 INFO: Epoch:  54 | train loss: 0.093307 | test loss: 0.094371
+2025-06-09 23:23:30 INFO: Epoch:  55 | train loss: 0.094896 | test loss: 0.093718
+2025-06-09 23:23:54 INFO: Epoch:  56 | train loss: 0.093638 | test loss: 0.093197
+2025-06-09 23:24:15 INFO: Epoch:  57 | train loss: 0.094286 | test loss: 0.093145
+2025-06-09 23:24:36 INFO: Epoch:  58 | train loss: 0.093522 | test loss: 0.094065
+2025-06-09 23:24:56 INFO: Epoch:  59 | train loss: 0.093254 | test loss: 0.095988
+2025-06-09 23:25:17 INFO: Epoch:  60 | train loss: 0.093782 | test loss: 0.092864
+2025-06-09 23:25:49 INFO: Epoch:  61 | train loss: 0.092699 | test loss: 0.092920
+2025-06-09 23:26:08 INFO: Epoch:  62 | train loss: 0.092534 | test loss: 0.092559
+2025-06-09 23:26:27 INFO: Epoch:  63 | train loss: 0.092306 | test loss: 0.092125
+2025-06-09 23:26:46 INFO: Epoch:  64 | train loss: 0.093364 | test loss: 0.092370
+2025-06-09 23:27:05 INFO: Epoch:  65 | train loss: 0.093005 | test loss: 0.092196
+2025-06-09 23:27:24 INFO: Epoch:  66 | train loss: 0.092370 | test loss: 0.092271
+2025-06-09 23:27:43 INFO: Epoch:  67 | train loss: 0.092725 | test loss: 0.092630
+2025-06-09 23:28:03 INFO: Epoch:  68 | train loss: 0.092539 | test loss: 0.092227
+2025-06-09 23:28:23 INFO: Epoch:  69 | train loss: 0.092169 | test loss: 0.092338
+2025-06-09 23:28:44 INFO: Epoch:  70 | train loss: 0.093432 | test loss: 0.092191
+2025-06-09 23:29:06 INFO: Epoch:  71 | train loss: 0.091853 | test loss: 0.093779
+2025-06-09 23:29:27 INFO: Epoch:  72 | train loss: 0.092304 | test loss: 0.091968
+2025-06-09 23:29:48 INFO: Epoch:  73 | train loss: 0.092258 | test loss: 0.091993
+2025-06-09 23:30:08 INFO: Epoch:  74 | train loss: 0.092541 | test loss: 0.091242
+2025-06-09 23:30:29 INFO: Epoch:  75 | train loss: 0.091007 | test loss: 0.091639
+2025-06-09 23:30:51 INFO: Epoch:  76 | train loss: 0.091648 | test loss: 0.091945
+2025-06-09 23:31:14 INFO: Epoch:  77 | train loss: 0.091278 | test loss: 0.091696
+2025-06-09 23:31:35 INFO: Epoch:  78 | train loss: 0.092397 | test loss: 0.090951
+2025-06-09 23:31:56 INFO: Epoch:  79 | train loss: 0.091335 | test loss: 0.091078
+2025-06-09 23:32:17 INFO: Epoch:  80 | train loss: 0.092788 | test loss: 0.092240
+2025-06-09 23:32:39 INFO: Epoch:  81 | train loss: 0.091503 | test loss: 0.091032
+2025-06-09 23:33:00 INFO: Epoch:  82 | train loss: 0.091708 | test loss: 0.092719
+2025-06-09 23:33:21 INFO: Epoch:  83 | train loss: 0.093054 | test loss: 0.094539
+2025-06-09 23:33:42 INFO: Epoch:  84 | train loss: 0.092816 | test loss: 0.093089
+2025-06-09 23:34:03 INFO: Epoch:  85 | train loss: 0.092199 | test loss: 0.092014
+2025-06-09 23:34:25 INFO: Epoch:  86 | train loss: 0.092539 | test loss: 0.093081
+2025-06-09 23:34:45 INFO: Epoch:  87 | train loss: 0.092383 | test loss: 0.093240
+2025-06-09 23:35:07 INFO: Epoch:  88 | train loss: 0.092529 | test loss: 0.092928
+2025-06-09 23:35:28 INFO: Epoch:  89 | train loss: 0.092073 | test loss: 0.094770
+2025-06-09 23:35:47 INFO: Epoch:  90 | train loss: 0.092171 | test loss: 0.092017
+2025-06-09 23:36:16 INFO: Epoch:  91 | train loss: 0.091849 | test loss: 0.091357
+2025-06-09 23:36:34 INFO: Epoch:  92 | train loss: 0.091125 | test loss: 0.091270
+2025-06-09 23:36:52 INFO: Epoch:  93 | train loss: 0.091408 | test loss: 0.092541
+2025-06-09 23:37:08 INFO: Epoch:  94 | train loss: 0.091648 | test loss: 0.091288
+2025-06-09 23:37:24 INFO: Epoch:  95 | train loss: 0.091358 | test loss: 0.090777
+2025-06-09 23:37:39 INFO: Epoch:  96 | train loss: 0.090806 | test loss: 0.090989
+2025-06-09 23:37:55 INFO: Epoch:  97 | train loss: 0.091586 | test loss: 0.090825
+2025-06-09 23:38:11 INFO: Epoch:  98 | train loss: 0.090777 | test loss: 0.090651
+2025-06-09 23:38:27 INFO: Epoch:  99 | train loss: 0.090640 | test loss: 0.091098
+2025-06-09 23:38:42 INFO: Epoch: 100 | train loss: 0.091116 | test loss: 0.093424

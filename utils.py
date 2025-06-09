@@ -15,7 +15,7 @@ def visualize_pretrain(
     os.makedirs('./figure', exist_ok=True)
     all_comparisons = torch.cat(comparison, dim=0)
     name = './figure/show_per' + str(show_per_epoch) + 'epoch' + '.png'
-    save_image(all_comparisons.cpu(), name, nrow=show_img_count*3)
+    save_image(all_comparisons.cpu(), name, nrow=show_img_count*3, normalize=True, value_range=(-1,1))
 
 
 def loss_figure(
