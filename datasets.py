@@ -1,9 +1,10 @@
 import torch
 import os
 from torchvision import datasets, transforms
+from checkDataset import CheckDataset
 
 
-def getdataset(batch_size):
+def getbasicdataset(batch_size):
     if not os.path.exists('./data'):
         os.mkdir('./data')
 
@@ -32,6 +33,27 @@ def getdataset(batch_size):
 
     print("Finished loading dataset")
     return train_loader, test_loader
+
+def getDataset(batch_size, augment=False):
+    print("Loading dataset")
+
+    dataset = CheckDataset(
+        processed_root="data/check",
+        patients_path="data/check/patients",
+        targets_json="data/check/targets.json",
+        transform=transforms.Normalize(mean=[0.5], std=[0.5]), # normalize image intensity
+        augment=augment) 
+    
+    print(f"Dataset contains {len(dataset)} samples.")
+    
+    data_loader = torch.utils.data.DataLoader(
+        dataset, 
+        batch_size=batch_size, 
+        shuffle=True, 
+        num_workers=4)
+    
+    print("Finished loading dataset")
+    return data_loader 
 
 
 def mask_image(data_loader, mask_params, patch_size):
