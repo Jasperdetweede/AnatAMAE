@@ -38,7 +38,7 @@ def getbasicdataset(batch_size):
 def getdataset(batch_size, augment=False):
     print("Loading dataset")
 
-    dataset = "check_small"
+    dataset = "check"
     print("Using dataset: " + dataset.upper())
 
     dataset = CheckDataset(
