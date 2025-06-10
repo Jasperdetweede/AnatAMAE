@@ -138,8 +138,9 @@ def pretrain():
     train_loader = test_loader = getdataset(args.batch_size)
     model = Autoencoder().to(device)
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
-    criterion = nn.MSELoss()
-    
+    # criterion = nn.MSELoss()
+    criterion = nn.L1Loss()
+
     mask_params = get_mask_params(train_loader.dataset[0]["image"], args)
     comparison = []
     train_loss_list = []

@@ -38,10 +38,13 @@ def getbasicdataset(batch_size):
 def getdataset(batch_size, augment=False):
     print("Loading dataset")
 
+    dataset = "check_small"
+    print("Using dataset: " + dataset.upper())
+
     dataset = CheckDataset(
-        processed_root="data/check",
-        patients_path="data/check/patients",
-        targets_json="data/check/targets.json",
+        processed_root="data/" + dataset,
+        patients_path="data/" + dataset + "/patients",
+        targets_json="data/"+ dataset + "/targets.json",
         transform=transforms.Normalize(mean=[0.5], std=[0.5]), # normalize image intensity
         augment=augment) 
     

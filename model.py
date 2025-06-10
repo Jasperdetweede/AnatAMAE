@@ -78,7 +78,7 @@ class Autoencoder(nn.Module):
             ResidualBlock(32),
 
             nn.ConvTranspose2d(32, 1, 4, stride=2, padding=1),          # 128 -> 256
-            nn.Sigmoid(),  # reconstruct intensities in [0,1]
+            nn.Tanh(),  # reconstruct intensities in [-1,1]
         )
 
     def forward(self, x):

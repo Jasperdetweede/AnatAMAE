@@ -356,21 +356,25 @@ def preprocess(images_path, pointfiles_path, dataset_out_path, targets_path, spl
     
     # Preprocess for all images
     for subdir, image in images: 
-        image_path = os.path.join(images_path, subdir, image + ".dcm")
-        pointfile_path = os.path.join(pointfiles_path, subdir, image + ".dcm.pts")
+        try:
+            image_path = os.path.join(images_path, subdir, image + ".dcm")
+            pointfile_path = os.path.join(pointfiles_path, subdir, image + ".dcm.pts")
 
-        # read image
-        dcm = pydicom.dcmread(image_path)
-        img = dcm.pixel_array.astype(np.float32)
+            # read image
+            dcm = pydicom.dcmread(image_path)
+            img = dcm.pixel_array.astype(np.float32)
 
-        # correct intensity, resample, crop, flip left hip
-        correct_intens_img = standardise_intensity(dcm, img)
-        resampled_img = resample(correct_intens_img, dcm, target_spacing)
-        cropped = crop_hips(resampled_img, pointfile_path, crop_size, output_size, target_spacing)
-        cropped['left'] = mirror_image_and_points(cropped['left'][0], cropped['left'][1])
+            # correct intensity, resample, crop, flip left hip
+            correct_intens_img = standardise_intensity(dcm, img)
+            resampled_img = resample(correct_intens_img, dcm, target_spacing)
+            cropped = crop_hips(resampled_img, pointfile_path, crop_size, output_size, target_spacing)
+            cropped['left'] = mirror_image_and_points(cropped['left'][0], cropped['left'][1])
 
-        # store data in the correct folders 
-        write_data(output_path, image, cropped)
+            # store data in the correct folders 
+            write_data(output_path, image, cropped)
+        except: 
+            print("Error occured, skipping image")
+
     
 if __name__ == "__main__":
     images_path = "check_raw/images"
@@ -381,4 +385,5 @@ if __name__ == "__main__":
     output_size = 256
     crop_size = 1024
 
+    print("Creating datatset in: " + dataset_out_path.upper())
     crops = preprocess(images_path, pointfiles_path, dataset_out_path, targets_path, split_path, output_size, crop_size)
