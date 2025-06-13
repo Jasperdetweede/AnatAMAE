@@ -51,12 +51,12 @@ def sample_and_plot_from_loader(
 if __name__ == "__main__":
 
     print_masked = False
-    dataloader = getdataset(1)
+    train_loader, test_loader, val_loader = getdataset(1)
     patch_size = 16
-    mask_rate = 0.75
+    mask_rate = 0.5
     num_samples = 2
     
-    _, height, width = dataloader.dataset[0]["image"].shape
+    _, height, width = train_loader.dataset[0]["image"].shape
     num_patches = height // patch_size * width // patch_size
     num_masked = int(num_patches * mask_rate)
 
@@ -68,5 +68,5 @@ if __name__ == "__main__":
         'patch_size': patch_size 
     }
 
-    sample_and_plot_from_loader(dataloader, mask_params, num_samples, print_masked)
+    sample_and_plot_from_loader(train_loader, mask_params, num_samples, print_masked)
     input("Press key to close windows and quit program")

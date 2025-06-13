@@ -38,26 +38,35 @@ def getbasicdataset(batch_size):
 def getdataset(batch_size, augment=False):
     print("Loading dataset")
 
-    dataset = "check"
-    print("Using dataset: " + dataset.upper())
+    dataset_name = "check"
+    print("Using dataset: " + dataset_name.upper())
 
-    dataset = CheckDataset(
-        processed_root="data/" + dataset,
-        patients_path="data/" + dataset + "/patients",
-        targets_json="data/"+ dataset + "/targets.json",
-        transform=transforms.Normalize(mean=[0.5], std=[0.5]), # normalize image intensity
-        augment=augment) 
+    output = {}
+    total_samples = 0
+    for set in ["train", "test", "val"]:
+        dataset = CheckDataset(
+            processed_root="data/" + dataset_name,
+            patients_path="data/" + dataset_name + "/patients",
+            targets_json="data/"+ dataset_name + "/targets.json",
+            split_txt="data/" + dataset_name + "/train_test_val_split.txt",
+            desired_split=set,
+            transform=transforms.Normalize(mean=[0.5], std=[0.5]), # normalize image intensity
+            augment=augment) 
+        
+        print(f"{set}set contains {len(dataset)} samples.")
+        total_samples = total_samples + len(dataset)
+        
+        data_loader = torch.utils.data.DataLoader(
+            dataset, 
+            batch_size=batch_size, 
+            shuffle=True, 
+            num_workers=4)
+        
+        output[set] = data_loader
+        print("Finished loading " + set + " set")
     
-    print(f"Dataset contains {len(dataset)} samples.")
-    
-    data_loader = torch.utils.data.DataLoader(
-        dataset, 
-        batch_size=batch_size, 
-        shuffle=True, 
-        num_workers=4)
-    
-    print("Finished loading dataset")
-    return data_loader 
+    print(f"Full dataset contains {total_samples} samples.")
+    return output["train"], output["test"], output["val"]  
 
 def mask_batch(batch, mask_params):
     """

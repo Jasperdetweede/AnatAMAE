@@ -1,12 +1,11 @@
 import os
 import json
 import numpy as np
-import skimage
 import torch
 from torch.utils.data import Dataset
 
 class CheckDataset(Dataset):
-    def __init__(self, processed_root: str, patients_path: str, targets_json: str, transform=None, augment=False):
+    def __init__(self, processed_root: str, patients_path: str, targets_json: str, split_txt: str, desired_split="train", transform=None, augment=False):
         """
         Args:
             processed_root: root folder containing patient subdirs
@@ -15,8 +14,19 @@ class CheckDataset(Dataset):
         """
         self.processed_root = processed_root
         self.patients_path = patients_path
+        self.desired_split = desired_split
+
         self.transform = transform
         self.augment = augment
+        
+
+        # Load split
+        split_map = {}
+        with open(split_txt, 'r') as f:
+            for line in f:
+                CHECK_patient_id, split = line.strip().split(',')
+                patient_id = CHECK_patient_id.replace("CHECK-", "")
+                split_map[patient_id] = split
 
         # Load targets
         with open(targets_json, 'r') as f:
@@ -25,6 +35,10 @@ class CheckDataset(Dataset):
         # Build samples list
         self.samples = []  # each entry: dict with paths + meta
         for patient_id in os.listdir(patients_path):
+            
+            if split_map.get(patient_id) != self.desired_split:
+                continue
+
             patient_dir = os.path.join(patients_path, patient_id)
             meta_dir    = os.path.join(patient_dir, "metadata")
             if not os.path.isdir(patient_dir) or not os.path.isdir(meta_dir):
