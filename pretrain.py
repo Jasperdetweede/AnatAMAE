@@ -12,14 +12,14 @@ from utils import visualize_pretrain, loss_figure, set_logger, set_seed
 def get_args():
     # define some parameters
     parser = argparse.ArgumentParser(description='Pretrain')
-    parser.add_argument('--epoch', type=int, default=100, help='Number of epochs')
-    parser.add_argument('--batch_size', type=int, default=64, help='Batch size')
+    parser.add_argument('--epoch', type=int, default=50, help='Number of epochs')
+    parser.add_argument('--batch_size', type=int, default=32, help='Batch size')
     parser.add_argument('--lr', type=float, default=0.001, help='Learning rate')
-    parser.add_argument('--show_per_epoch', type=int, default=10, help='Show per epoch')
+    parser.add_argument('--show_per_epoch', type=int, default=2, help='Show per epoch')
     parser.add_argument('--show_img_count', type=int, default=2, help='Show image count')
     parser.add_argument('--patch_size', type=int, default=2, help='Patch size')
     parser.add_argument('--mask_rate', type=float, default=0.75, help='Mask rate')
-    parser.add_argument('--save_every', type=int, default=10, help='Save every n epoch')
+    parser.add_argument('--save_every', type=int, default=5, help='Save every n epoch')
     parser.add_argument('--seed', type=int, default=0, help='Random seed')
     args = parser.parse_args()
     return args
@@ -41,8 +41,11 @@ def train(
         orig_imgs = batch["image"].to(device)         # [B,1,H,W]
 
         # Apply masking on the fly
-        masked_batch = mask_batch(batch, mask_params)
-        masked_imgs  = masked_batch["image"].to(device)
+        if mask_params["num_masked"] == 0:
+            masked_batch = mask_batch(batch, mask_params)
+            masked_imgs  = masked_batch["image"].to(device)
+        else:
+            masked_imgs = orig_imgs.copy()
 
         # Forward pass and reconstruction loss
         reconstruction = model(masked_imgs)            
@@ -135,16 +138,19 @@ def pretrain():
     logging.info(f'Using device: {device}')
     
     # Data loader
-    train_loader = test_loader = getdataset(args.batch_size)
+    train_loader, test_loader, val_loader = getdataset(args.batch_size)
     model = Autoencoder().to(device)
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
     # criterion = nn.MSELoss()
-    criterion = nn.L1Loss()
+    # criterion = nn.L1Loss()
+    criterion = nn.MSELoss() * 0.5 + 
 
     mask_params = get_mask_params(train_loader.dataset[0]["image"], args)
     comparison = []
     train_loss_list = []
     test_loss_list = []
+
+    print("Starting pre-training")
 
     for epoch in range(args.epoch):
         train_loss = train(
@@ -172,19 +178,26 @@ def pretrain():
         
         logging.info(f'Epoch: {epoch + 1:3d} | train loss: {train_loss:.6f} | test loss: {test_loss:.6f}')
         if (epoch+1) % args.save_every == 0 or (epoch+1) == args.epoch:
-            torch.save(model.state_dict(), f'./ckpt/pretrain/{epoch+1}epoch.pth')
+            checkpoint = {
+                'epoch':        epoch,
+                'model_state':  model.state_dict(),
+                'optim_state':  optimizer.state_dict(),
+            }
+            torch.save(checkpoint, f'./ckpt/pretrain/{epoch+1}epoch.pth')
 
-    visualize_pretrain(
-        comparison, 
-        args.show_per_epoch, 
-        args.show_img_count, 
-    )
-    loss_figure(
-        train_loss_list, 
-        test_loss_list, 
-        args.epoch, 
-        'pretrain'
-    )
+        # Show progress every epoch and after pre-training
+        visualize_pretrain(
+            comparison, 
+            args.show_per_epoch, 
+            args.show_img_count, 
+        )
+
+        loss_figure(
+            train_loss_list, 
+            test_loss_list, 
+            epoch+1, 
+            'pretrain'
+        )
     
 if __name__ == "__main__":
     pretrain()

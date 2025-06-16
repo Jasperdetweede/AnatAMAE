@@ -93,25 +93,27 @@ class Autoencoder(nn.Module):
         return rec
 
 class Classifier(nn.Module):
-    def __init__(self, encoder: nn.Module, latent_dim: int):
-        """
-        A classifier that takes encoder outputs of shape [B, latent_dim, H, W],
-        does global pooling + MLP -> scalar probability.
-        
-        Args:
-            encoder: nn.Module mapping x -> features [B, latent_dim, h, w]
-            latent_dim: number of channels in encoder output
-        """
+    def __init__(self, encoder: nn.Module, latent_dim: int, hidden_dim: int = 128):
         super().__init__()
         self.encoder = encoder
 
-        # global pooling -> flatten -> dropout -> linear -> sigmoid
         self.classifier = nn.Sequential(
             nn.AdaptiveAvgPool2d((1, 1)),  # [B, latent_dim, 1, 1]
             nn.Flatten(),                  # [B, latent_dim]
-            nn.Dropout(0.5),
-            nn.Linear(latent_dim, 1),      # [B, 1]
-            nn.Sigmoid(),                  # [B, 1] in (0,1)
+            nn.Dropout(0.7),
+
+            # Hidden layer:
+            nn.Linear(latent_dim, latent_dim), 
+            nn.ReLU(inplace=True),
+            nn.Dropout(0.7),
+
+            # Hidden layer 2
+            nn.Linear(latent_dim, hidden_dim), 
+            nn.ReLU(inplace=True),
+            nn.Dropout(0.7),
+
+            # final output
+            nn.Linear(hidden_dim, 1),      # [B, 1]
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:

@@ -11,10 +11,11 @@ def visualize_pretrain(
     comparison,
     show_per_epoch, 
     show_img_count, 
+    add_prefix=""
 ):
     os.makedirs('./figure', exist_ok=True)
     all_comparisons = torch.cat(comparison, dim=0)
-    name = './figure/show_per' + str(show_per_epoch) + 'epoch' + '.png'
+    name = './figure/' + add_prefix + 'show_per' + str(show_per_epoch) + 'epoch' + '.png'
     save_image(all_comparisons.cpu(), name, nrow=show_img_count*3, normalize=True, value_range=(-1,1))
 
 
@@ -31,6 +32,9 @@ def loss_figure(
     elif mode == 'finetune':
         title = 'Cross Entropy Loss'
         figure_path = './figure/finetune_loss.png'
+    elif mode == 'continued_pretrain':
+        title = 'Cross Entropy Loss'
+        figure_path = './figure/continued_pretrain_loss.png'
     else:
         raise ValueError('Invalid mode')
     

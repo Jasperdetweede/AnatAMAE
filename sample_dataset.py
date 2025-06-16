@@ -47,6 +47,18 @@ def sample_and_plot_from_loader(
 
             plt.show(block=False)
 
+def count_targets(train_loader): 
+    count_true = 0
+
+    for batch in train_loader:
+        for target in batch["target"]:
+            if target:
+                count_true = count_true + 1
+
+    print(f"{count_true} out of {len(train_loader)} has a true target")
+    return count_true
+
+
 
 if __name__ == "__main__":
 
@@ -69,4 +81,5 @@ if __name__ == "__main__":
     }
 
     sample_and_plot_from_loader(train_loader, mask_params, num_samples, print_masked)
+    count_targets(train_loader)
     input("Press key to close windows and quit program")

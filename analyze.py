@@ -1,3 +1,4 @@
+import math
 import torch
 import os
 import re
@@ -5,51 +6,66 @@ from tqdm import tqdm
 import argparse
 import matplotlib.pyplot as plt
 from datasets import getdataset
-from model import AutoEncoder, Classifier
+from model import Autoencoder, Classifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 
 def get_args():
     # define some parameters
     parser = argparse.ArgumentParser()
-    parser.add_argument('--num_classes', type=int, default=10, help='Number of classes')
-    parser.add_argument('--batch_size', type=int, default=256, help='Batch size')
+    parser.add_argument('--batch_size', type=int, default=16, help='Batch size')
     parser.add_argument('--model_path', type=str, default='./ckpt/finetune/100epoch.pth', help='Model path')
     parser.add_argument('--model_dir', type=str, default='./ckpt/finetune/', help='Model directory')
     args = parser.parse_args()
     return args
 
 
-def load_model(model_path, num_calsses):
+def load_model(model_path):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    autoencoder = AutoEncoder()
-    model = Classifier(autoencoder.encoder, num_calsses).to(device)
-    model.load_state_dict(torch.load(model_path))
+
+    autoencoder = Autoencoder()
+    model = Classifier(autoencoder.encoder, autoencoder.latent_dim).to(device)
+    model.load_state_dict(torch.load(model_path)["model_state"])
     model.eval()
+
     return model, device
 
 
-def sample(test_loader, args):
+def sample(test_loader, num_examples, args):
     os.makedirs('./figure', exist_ok=True)
-    model, device = load_model(args.model_path, args.num_classes)
-    dataiter = iter(test_loader)
-    images, labels = next(dataiter)
-    images = images.to(device)
-    labels = labels.to(device)
-    outputs = model(images)
-    _, predicted = torch.max(outputs, 1)
-    fig, ax = plt.subplots(2, 4, figsize=(12, 6))
+    
+    with torch.no_grad():
+        model, device = load_model(args.model_path)
 
-    for i in range(8):
-        img = images[i].cpu().numpy().transpose((1, 2, 0))
-        ax[i//4, i%4].imshow(img, cmap='gray')
-        ax[i//4, i%4].set_title(f'True: {labels[i].item()}, Predicted: {predicted[i].item()}')
-        ax[i//4, i%4].axis('off')
+        #Load examples
+        dataiter = iter(test_loader)
+        batch = next(dataiter)
+        images = batch["image"].to(device)
+        labels = batch["target"].to(device)
 
-    plt.savefig(f'./figure/samples.png')
-    plt.close()
+        logits = model(images)                      # [B]
+        probs = torch.sigmoid(logits)               # convert logits to probabilities
+        predicted = (probs > 0.5).long()            # threshold at 0.5
 
-def score_analyze(test_loader, args):
+        num_examples = min(num_examples, images.size(0))
+
+        cols = 4
+        rows = math.ceil(num_examples / cols)
+        fig, axes = plt.subplots(rows, cols, figsize=(4 * cols, 4 * rows))
+        axes = axes.flat  # flatten iterator
+    
+        for i in range(rows * cols):
+            ax = axes[i]
+            if i < num_examples:
+                img = images[i].cpu().squeeze(0).numpy()
+                ax.imshow(img, cmap='gray')
+                ax.set_title(f'True: {labels[i].item()}, Pred: {predicted[i].item()}')
+            ax.axis('off')  # hide unused axes as well
+
+        plt.savefig(f'./figure/samples.png')
+        plt.close()
+
+def score_analyze(val_loader, args):
     model_list = [file for file in os.listdir(args.model_dir) if file.endswith('.pth')]
     model_list.sort(key=lambda x: int(re.findall(r'\d+', x)[0]))
     
@@ -60,26 +76,33 @@ def score_analyze(test_loader, args):
     epoch_list = []  # New list to store the epoch of each model
     
     for model_path in tqdm(model_list):
-        model, device = load_model(args.model_dir + model_path, args.num_classes)
-        model.eval()
+        model, device = load_model(os.path.join(args.model_dir, model_path))
         y_pred = []
         y_true = []
+
+        model.eval()
         with torch.no_grad():
-            for images, labels in test_loader:
-                images = images.to(device)
-                labels = labels.to(device)
-                outputs = model(images)
-                _, predicted = torch.max(outputs.data, 1)
-                y_pred.extend(predicted.tolist())
-                y_true.extend(labels.tolist())
+            for batch in val_loader:
+                images = batch["image"].to(device)
+                labels = batch["target"].to(device)
+
+                logits = model(images)                      # [B]
+                probs = torch.sigmoid(logits)               # convert logits to probabilities
+                preds = (probs > 0.5).long()                # threshold at 0.5
+
+                y_pred.extend(preds.cpu().tolist())
+                y_true.extend(labels.cpu().long().tolist())
+
         accuracy = accuracy_score(y_true, y_pred)
-        precision = precision_score(y_true, y_pred, average='weighted')
-        recall = recall_score(y_true, y_pred, average='weighted')
-        f1 = f1_score(y_true, y_pred, average='weighted')
+        precision = precision_score(y_true, y_pred, average='weighted', zero_division=0)
+        recall = recall_score(y_true, y_pred, average='weighted', zero_division=0)
+        f1 = f1_score(y_true, y_pred, average='weighted', zero_division=0)
+
         accuracy_list.append(accuracy)
         precision_list.append(precision)
         recall_list.append(recall)
         f1_list.append(f1)
+        
         epoch_list.append(int(re.findall(r'\d+', model_path)[0]))  
         # Calculate the epoch of the model and add it to the list
     
@@ -98,6 +121,6 @@ def score_analyze(test_loader, args):
 
 if __name__ == '__main__':
     args = get_args()
-    _, test_loader = getdataset(args.batch_size)
-    sample(test_loader, args) # Visualize the samples
-    score_analyze(test_loader, args) # Analyze the scores
+    _, _, val_loader = getdataset(args.batch_size)
+    sample(val_loader, 16, args) # Visualize the samples
+    score_analyze(val_loader, args) # Analyze the scores
