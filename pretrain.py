@@ -5,7 +5,8 @@ import random
 import argparse
 from torch import nn, optim
 from model import Autoencoder
-from datasets import getdataset, mask_batch
+from datasets import getdataset
+from masking import mask_batch
 from utils import visualize_pretrain, loss_figure, set_logger, set_seed
 
 
@@ -17,10 +18,13 @@ def get_args():
     parser.add_argument('--lr', type=float, default=0.001, help='Learning rate')
     parser.add_argument('--show_per_epoch', type=int, default=2, help='Show per epoch')
     parser.add_argument('--show_img_count', type=int, default=2, help='Show image count')
-    parser.add_argument('--patch_size', type=int, default=2, help='Patch size')
+    parser.add_argument('--patch_size', type=int, default=16, help='Patch size')
     parser.add_argument('--mask_rate', type=float, default=0.75, help='Mask rate')
     parser.add_argument('--save_every', type=int, default=5, help='Save every n epoch')
     parser.add_argument('--seed', type=int, default=0, help='Random seed')
+    parser.add_argument('--mask_roi', type=bool, required=True, help='Mask ROI area')
+    parser.add_argument('--mask_non_roi', type=bool, required=True, help='Mask non ROI area')
+    parser.add_argument('--output_folder', type=str, default='ckpt', help='Folder name for output, for running multiple experiments consecutively. Standard is \'ckpt\'')
     args = parser.parse_args()
     return args
 
@@ -41,11 +45,8 @@ def train(
         orig_imgs = batch["image"].to(device)         # [B,1,H,W]
 
         # Apply masking on the fly
-        if mask_params["num_masked"] == 0:
-            masked_batch = mask_batch(batch, mask_params)
-            masked_imgs  = masked_batch["image"].to(device)
-        else:
-            masked_imgs = orig_imgs.copy()
+        masked_batch = mask_batch(batch, mask_params.get("mask_roi"), mask_params.get("mask_non_roi"), mask_params)
+        masked_imgs  = masked_batch["image"].to(device)
 
         # Forward pass and reconstruction loss
         reconstruction = model(masked_imgs)            
@@ -84,9 +85,9 @@ def test(
     with torch.no_grad():
         for batch_idx, batch in enumerate(data_loader):
             orig = batch["image"].to(device)  # [B,1,H,W]
-            # mask_batch requires patch_size
-            mb = mask_batch(batch, mask_params)
-            masked = mb["image"].to(device)   # [B,1,H,W]
+            
+            masked_batch = mask_batch(batch, mask_params.get("mask_roi"), mask_params.get("mask_non_roi"), mask_params)
+            masked = masked_batch["image"].to(device)   # [B,1,H,W]
 
             # forward
             reconstruction = model(masked)        # [B,1,H,W]
@@ -121,7 +122,10 @@ def get_mask_params(batch_img, args):
         'width': width,
         'num_patches': num_patches,
         'num_masked': num_masked, 
-        'patch_size': patch_size
+        'patch_size': patch_size,
+        'mask_rate': args.mask_rate,
+        'mask_roi': args.mask_roi,
+        'mask_non_roi': args.mask_non_roi
     }
     # Generate the mask parameters
     return mask_params
@@ -130,7 +134,7 @@ def get_mask_params(batch_img, args):
 def pretrain():
     args = get_args()
     set_seed(args.seed)
-    logging = set_logger('pretrain')
+    logging = set_logger('pretrain', '')
     logging.info(f'Start training:')
     logging.info(f'Arguments: {args}')
 
@@ -138,12 +142,11 @@ def pretrain():
     logging.info(f'Using device: {device}')
     
     # Data loader
-    train_loader, test_loader, val_loader = getdataset(args.batch_size)
+    train_loader, test_loader = getdataset(args.batch_size)
     model = Autoencoder().to(device)
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
     # criterion = nn.MSELoss()
-    # criterion = nn.L1Loss()
-    criterion = nn.MSELoss() * 0.5 + 
+    criterion = nn.L1Loss()
 
     mask_params = get_mask_params(train_loader.dataset[0]["image"], args)
     comparison = []
@@ -183,7 +186,7 @@ def pretrain():
                 'model_state':  model.state_dict(),
                 'optim_state':  optimizer.state_dict(),
             }
-            torch.save(checkpoint, f'./ckpt/pretrain/{epoch+1}epoch.pth')
+            torch.save(checkpoint, f'./{args.output_folder}/pretrain/{epoch+1}epoch.pth')
 
         # Show progress every epoch and after pre-training
         visualize_pretrain(

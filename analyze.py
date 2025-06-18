@@ -7,7 +7,7 @@ import argparse
 import matplotlib.pyplot as plt
 from datasets import getdataset
 from model import Autoencoder, Classifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_curve, auc
 
 
 def get_args():
@@ -25,7 +25,7 @@ def load_model(model_path):
 
     autoencoder = Autoencoder()
     model = Classifier(autoencoder.encoder, autoencoder.latent_dim).to(device)
-    model.load_state_dict(torch.load(model_path)["model_state"])
+    model.load_state_dict(torch.load(model_path, weights_only=False)["model_state"])
     model.eval()
 
     return model, device
@@ -59,15 +59,55 @@ def sample(test_loader, num_examples, args):
             if i < num_examples:
                 img = images[i].cpu().squeeze(0).numpy()
                 ax.imshow(img, cmap='gray')
-                ax.set_title(f'True: {labels[i].item()}, Pred: {predicted[i].item()}')
+                ax.set_title(f'Target: {labels[i].item()}, Pred: {predicted[i].item()}')
             ax.axis('off')  # hide unused axes as well
 
         plt.savefig(f'./figure/samples.png')
         plt.close()
 
+def plot_roc(test_loader, args):
+    os.makedirs('./figure', exist_ok=True)
+    model, device = load_model(args.model_path)
+
+    y_true = []
+    y_prob = []
+
+    model.eval()
+    with torch.no_grad():
+        for batch in test_loader:
+            images = batch["image"].to(device)
+            labels = batch["target"].to(device)
+
+            logits = model(images)            # [B]
+            probs  = torch.sigmoid(logits)    # [B]
+
+            y_prob.extend(probs.cpu().tolist())
+            y_true.extend(labels.cpu().long().tolist())
+
+    # Compute ROC curve and AUC
+    fpr, tpr, thresholds = roc_curve(y_true, y_prob)
+    roc_auc = auc(fpr, tpr)
+
+    # Plot
+    plt.figure(figsize=(6,6))
+    plt.plot(fpr, tpr, label=f'ROC curve (AUC = {roc_auc:.3f})')
+    plt.plot([0,1], [0,1], 'k--', label='Random chance') 
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('ROC Curve')
+    plt.legend(loc='lower right')
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig('./figure/roc_curve.png')
+    plt.close()
+
 def score_analyze(val_loader, args):
-    model_list = [file for file in os.listdir(args.model_dir) if file.endswith('.pth')]
-    model_list.sort(key=lambda x: int(re.findall(r'\d+', x)[0]))
+    model_list = [
+        fname for fname in os.listdir(args.model_dir)
+        if re.match(r'^\d+epoch\.pth$', fname)
+    ]
+    # now safely extract the leading number
+    model_list.sort(key=lambda fname: int(fname.split('epoch')[0]))
     
     accuracy_list = []
     precision_list = []
@@ -121,6 +161,12 @@ def score_analyze(val_loader, args):
 
 if __name__ == '__main__':
     args = get_args()
-    _, _, val_loader = getdataset(args.batch_size)
-    sample(val_loader, 16, args) # Visualize the samples
-    score_analyze(val_loader, args) # Analyze the scores
+    _, test_set = getdataset(args.batch_size)
+    
+    print("Taking samples...")
+    sample(test_set, 16, args) # Visualize the samples
+    print("Calculating score...")
+    score_analyze(test_set, args) # Analyze the scores
+    print("Calculating AUROC...")
+    plot_roc(test_set, args)
+    print("Done")

@@ -11,30 +11,38 @@ def visualize_pretrain(
     comparison,
     show_per_epoch, 
     show_img_count, 
-    add_prefix=""
+    output_folder_name = None
 ):
-    os.makedirs('./figure', exist_ok=True)
+    if output_folder_name is not None:
+        output_base = os.path.join(output_folder_name, 'figure')
+    else: 
+        output_base = './figure'
+
+    os.makedirs(output_base, exist_ok=True)
     all_comparisons = torch.cat(comparison, dim=0)
-    name = './figure/' + add_prefix + 'show_per' + str(show_per_epoch) + 'epoch' + '.png'
-    save_image(all_comparisons.cpu(), name, nrow=show_img_count*3, normalize=True, value_range=(-1,1))
+    name = 'show_per' + str(show_per_epoch) + 'epoch' + '.png'
+    path = os.path.join(output_base, name)
+    save_image(all_comparisons.cpu(), path, nrow=show_img_count*3, normalize=True, value_range=(-1,1))
 
 
 def loss_figure(
     train_loss_list, 
     test_loss_list, 
     epoch,
-    mode
+    mode,
+    output_folder_name=None
 ):
-    os.makedirs('./figure', exist_ok=True)
+    if output_folder_name is not None:
+        output_base = os.path.join(output_folder_name, 'figure')
+    else: 
+        output_base = './figure'
+    os.makedirs(output_base, exist_ok=True)
     if mode == 'pretrain':
-        title = 'Image MSE Loss'
-        figure_path = './figure/pretrain_loss.png'
+        title = 'Image L1Loss'
+        figure_path = os.path.join(output_base, '/pretrain_loss.png')
     elif mode == 'finetune':
-        title = 'Cross Entropy Loss'
-        figure_path = './figure/finetune_loss.png'
-    elif mode == 'continued_pretrain':
-        title = 'Cross Entropy Loss'
-        figure_path = './figure/continued_pretrain_loss.png'
+        title = 'BCEWithLogitsLoss'
+        figure_path = os.path.join(output_base, '/finetune_loss.png')
     else:
         raise ValueError('Invalid mode')
     
@@ -49,14 +57,35 @@ def loss_figure(
     # Save the loss curve
 
 
-def set_logger(mode):
-    os.makedirs('./ckpt', exist_ok=True)
+def auc_figure(
+    auc_list,   # List[float] of length == epoch
+    epoch: int, # current epoch count
+):
+    os.makedirs('./figure', exist_ok=True)
+
+    # Plot
+    plt.plot(range(1, epoch + 1), auc_list, marker='o', label='val AUC')
+    plt.xlabel('Epoch')
+    plt.ylabel('AUC')
+    plt.ylim(0.0, 1.0)
+    plt.title("AUC values over epochs")
+    plt.grid(True, linestyle='--', alpha=0.5)
+    plt.legend()
+
+    # Save & close
+    plt.tight_layout()
+    plt.savefig('./figure/auc_per_epoch.png')
+    plt.close()
+
+def set_logger(mode, output_folder_name='ckpt'):
+    os.makedirs(f'./{output_folder_name}', exist_ok=True)
+
     if mode == 'pretrain':
-        os.makedirs('./ckpt/pretrain', exist_ok=True)
-        filename = './ckpt/pretrain/pretrain.log'
+        os.makedirs(f'./{output_folder_name}/pretrain', exist_ok=True)
+        filename = f'./{output_folder_name}/pretrain/pretrain.log'
     elif mode == 'finetune':
-        os.makedirs('./ckpt/finetune', exist_ok=True)
-        filename = './ckpt/finetune/finetune.log'
+        os.makedirs(f'./{output_folder_name}/finetune', exist_ok=True)
+        filename = f'./{output_folder_name}/finetune/finetune.log'
     else:
         raise ValueError('Invalid mode')
 

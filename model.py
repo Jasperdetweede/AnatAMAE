@@ -103,11 +103,6 @@ class Classifier(nn.Module):
             nn.Dropout(0.7),
 
             # Hidden layer:
-            nn.Linear(latent_dim, latent_dim), 
-            nn.ReLU(inplace=True),
-            nn.Dropout(0.7),
-
-            # Hidden layer 2
             nn.Linear(latent_dim, hidden_dim), 
             nn.ReLU(inplace=True),
             nn.Dropout(0.7),

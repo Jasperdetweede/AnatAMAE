@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import torch
-from datasets import getdataset, mask_batch
+from datasets import getdataset
+from masking import mask_batch
 
 
 def sample_and_plot_from_loader(
@@ -20,7 +21,7 @@ def sample_and_plot_from_loader(
         batch = next(iterator)
 
         if masked: 
-            batch = mask_batch(batch, mask_params)
+            batch = mask_batch(batch, True, False, mask_params)
 
         images  = batch["image"]  # [B, 1, H, W]
         points  = batch["points"] # list of [N_i, 2]
@@ -59,11 +60,10 @@ def count_targets(train_loader):
     return count_true
 
 
-
 if __name__ == "__main__":
 
-    print_masked = False
-    train_loader, test_loader, val_loader = getdataset(1)
+    print_masked = True
+    train_loader, test_loader = getdataset(1)
     patch_size = 16
     mask_rate = 0.5
     num_samples = 2
@@ -81,5 +81,5 @@ if __name__ == "__main__":
     }
 
     sample_and_plot_from_loader(train_loader, mask_params, num_samples, print_masked)
-    count_targets(train_loader)
+    # count_targets(train_loader)
     input("Press key to close windows and quit program")
