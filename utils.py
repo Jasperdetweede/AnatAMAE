@@ -39,10 +39,10 @@ def loss_figure(
     os.makedirs(output_base, exist_ok=True)
     if mode == 'pretrain':
         title = 'Image L1Loss'
-        figure_path = os.path.join(output_base, '/pretrain_loss.png')
+        figure_path = os.path.join(output_base, 'pretrain_loss.png')
     elif mode == 'finetune':
         title = 'BCEWithLogitsLoss'
-        figure_path = os.path.join(output_base, '/finetune_loss.png')
+        figure_path = os.path.join(output_base, 'finetune_loss.png')
     else:
         raise ValueError('Invalid mode')
     

@@ -130,7 +130,7 @@ class CheckDataset(Dataset):
 
         roi_indices = [18,19,20,21,22,23,24,25,26,75,74,73,72,71,69,18]
         roi_pts = [tuple(pts_list[i]) for i in roi_indices]
-        roi_mask_np = make_roi_mask(H, W, roi_pts, dilation_radius=5)
+        roi_mask_np = make_roi_mask(H, W, roi_pts, dilation_radius=2)
         roi_mask    = torch.from_numpy(roi_mask_np).to(torch.bool)  # BoolTensor [H,W]
 
         return {

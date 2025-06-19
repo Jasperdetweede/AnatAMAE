@@ -22,8 +22,8 @@ def get_args():
     parser.add_argument('--mask_rate', type=float, default=0.75, help='Mask rate')
     parser.add_argument('--save_every', type=int, default=5, help='Save every n epoch')
     parser.add_argument('--seed', type=int, default=0, help='Random seed')
-    parser.add_argument('--mask_roi', type=bool, required=True, help='Mask ROI area')
-    parser.add_argument('--mask_non_roi', type=bool, required=True, help='Mask non ROI area')
+    parser.add_argument('--mask_roi', type=str, required=True, help='Mask ROI area')
+    parser.add_argument('--mask_non_roi', type=str, required=True, help='Mask non ROI area')
     parser.add_argument('--output_folder', type=str, default='ckpt', help='Folder name for output, for running multiple experiments consecutively. Standard is \'ckpt\'')
     args = parser.parse_args()
     return args
@@ -83,6 +83,10 @@ def test(
     compare = []
 
     with torch.no_grad():
+        
+        # Pick a random batch to pick some examples from
+        visualize_batch_idx = random.randrange(len(data_loader))
+
         for batch_idx, batch in enumerate(data_loader):
             orig = batch["image"].to(device)  # [B,1,H,W]
             
@@ -95,11 +99,13 @@ def test(
             losses.append(loss.item())
 
             # gather some images for visualization
-            if batch_idx == 0 and (epoch == 0 or (epoch+1) % show_per_epoch == 0):
+            if batch_idx == visualize_batch_idx and (epoch == 0 or (epoch+1) % show_per_epoch == 0):
                 # number to show is min(show_img_count, B)
                 B = orig.size(0)
                 n = min(show_img_count, B)
-                for i in range(n):
+
+                idxs = random.sample(range(B), n) # Pick random indices to show from the random batch
+                for i in idxs:
                     # stack original / masked / recon along batch dim
                     trio = torch.cat([
                         orig[i:i+1],
@@ -117,6 +123,15 @@ def get_mask_params(batch_img, args):
     num_patches = height // args.patch_size * width // args.patch_size
     patch_size = args.patch_size
     num_masked = int(num_patches * args.mask_rate)
+
+    if args.mask_roi.lower() == "true": mask_roi = True
+    elif args.mask_roi.lower() == "false": mask_roi = False
+    else: raise Exception("mask_roi should be true or false")
+
+    if args.mask_non_roi.lower() == "true": mask_non_roi = True
+    elif args.mask_non_roi.lower() == "false": mask_non_roi = False
+    else: raise Exception("mask_non_roi should be true or false")
+
     mask_params = {
         'height': height,
         'width': width,
@@ -124,9 +139,11 @@ def get_mask_params(batch_img, args):
         'num_masked': num_masked, 
         'patch_size': patch_size,
         'mask_rate': args.mask_rate,
-        'mask_roi': args.mask_roi,
-        'mask_non_roi': args.mask_non_roi
+        'mask_roi': mask_roi,
+        'mask_non_roi': mask_non_roi
     }
+
+    print(f"PATCH ROI IS: {args.mask_roi} and PATCH NON-ROI IS: {args.mask_non_roi}")
     # Generate the mask parameters
     return mask_params
 
@@ -134,7 +151,7 @@ def get_mask_params(batch_img, args):
 def pretrain():
     args = get_args()
     set_seed(args.seed)
-    logging = set_logger('pretrain', '')
+    logging = set_logger('pretrain', args.output_folder)
     logging.info(f'Start training:')
     logging.info(f'Arguments: {args}')
 
@@ -193,13 +210,15 @@ def pretrain():
             comparison, 
             args.show_per_epoch, 
             args.show_img_count, 
+            output_folder_name=args.output_folder
         )
 
         loss_figure(
             train_loss_list, 
             test_loss_list, 
             epoch+1, 
-            'pretrain'
+            'pretrain',
+            output_folder_name=args.output_folder
         )
     
 if __name__ == "__main__":

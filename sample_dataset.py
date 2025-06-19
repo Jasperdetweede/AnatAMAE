@@ -21,7 +21,7 @@ def sample_and_plot_from_loader(
         batch = next(iterator)
 
         if masked: 
-            batch = mask_batch(batch, True, False, mask_params)
+            batch = mask_batch(batch, mask_params.get("mask_roi"), mask_params.get("mask_non_roi"), mask_params)
 
         images  = batch["image"]  # [B, 1, H, W]
         points  = batch["points"] # list of [N_i, 2]
@@ -77,9 +77,12 @@ if __name__ == "__main__":
         'width': width,
         'num_patches': num_patches,
         'num_masked': num_masked,
-        'patch_size': patch_size 
+        'patch_size': patch_size,
+        'mask_rate': mask_rate,
+        'mask_roi': True,
+        'mask_non_roi': False
     }
 
     sample_and_plot_from_loader(train_loader, mask_params, num_samples, print_masked)
-    # count_targets(train_loader)
+    count_targets(train_loader)
     input("Press key to close windows and quit program")
