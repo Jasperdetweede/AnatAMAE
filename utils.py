@@ -1,5 +1,7 @@
 import torch
 import os
+import matplotlib
+matplotlib.use('Agg') # Bug fix: turns off any interactive pop-up windows from pyplot, which were not used anyway. 
 import matplotlib.pyplot as plt
 from torchvision.utils import save_image
 import logging
