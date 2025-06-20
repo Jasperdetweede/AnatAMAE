@@ -62,8 +62,15 @@ def loss_figure(
 def auc_figure(
     auc_list,   # List[float] of length == epoch
     epoch: int, # current epoch count
+    output_folder_name=None
 ):
-    os.makedirs('./figure', exist_ok=True)
+    
+    if output_folder_name is not None:
+        output_base = os.path.join(output_folder_name, 'figure')
+    else: 
+        output_base = './figure'
+
+    os.makedirs(output_base, exist_ok=True)
 
     # Plot
     plt.plot(range(1, epoch + 1), auc_list, marker='o', label='val AUC')
@@ -76,10 +83,16 @@ def auc_figure(
 
     # Save & close
     plt.tight_layout()
-    plt.savefig('./figure/auc_per_epoch.png')
+    plt.savefig(os.path.join(output_base, 'auc_per_epoch.png'))
     plt.close()
 
 def set_logger(mode, output_folder_name='ckpt'):
+
+    # Remove existing logging handlers 
+    root = logging.getLogger()
+    for h in root.handlers[:]:
+        root.removeHandler(h)
+
     os.makedirs(f'./{output_folder_name}', exist_ok=True)
 
     if mode == 'pretrain':
