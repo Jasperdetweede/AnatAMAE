@@ -85,4 +85,5 @@ if __name__ == "__main__":
 
     sample_and_plot_from_loader(train_loader, mask_params, num_samples, print_masked)
     count_targets(train_loader)
+    count_targets(test_loader)
     input("Press key to close windows and quit program")
