@@ -14,34 +14,6 @@ def mask_batch(batch, mask_ROI: bool, mask_non_ROI: bool, mask_params):
         return mask_batch_full(batch, mask_params)
     
 
-# def mask_batch_non_ROI(batch, mask_params):
-#     """
-#     Masks everything *except* the ROI. Assumes:
-#       - batch["image"]    is [B,C,H,W]
-#       - batch["roi_mask"] is [B,H,W] BoolTensor (precomputed in your Dataset)
-#     """
-#     images   = batch["image"]                      # [B,C,H,W]
-#     roi_mask = batch["roi_mask"].to(images.device) # [B,H,W]
-    
-#     # 1) Full-image random masking
-#     full_masked = mask_batch_full(batch, mask_params)["image"].to(images.device)  # [B,C,H,W]
-
-#     # 2) Expand roi_mask to [B,C,H,W]
-#     #    so we can say: keep original where roi_mask is True
-#     B, C, H, W = images.shape
-#     mask_expanded = roi_mask.unsqueeze(1).expand(-1, C, -1, -1)  # [B,C,H,W]
-
-#     # 3) Restore ROI pixels: where mask_expanded, use images; else use full_masked
-#     restored = torch.where(mask_expanded, images, full_masked)
-
-#     return {
-#         "image":  restored,
-#         "target": batch["target"],
-#         "points": batch["points"],      # unchanged
-#         "roi_mask": batch["roi_mask"],  # pass through if you need it later
-#     }
-
-
 def mask_batch_non_ROI(batch, mask_params):
     """
     Masks only patches where NO pixel overlaps with the ROI.

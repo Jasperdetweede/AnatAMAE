@@ -1,0 +1,3 @@
+2025-06-18 16:51:44 INFO: Start training:
+2025-06-18 16:51:44 INFO: Arguments: Namespace(epoch=50, batch_size=32, lr=0.001, show_per_epoch=2, show_img_count=2, patch_size=16, mask_rate=0.75, save_every=5, seed=0, mask_roi='true', mask_non_roi='false\n', output_folder='ckpt')
+2025-06-18 16:51:44 INFO: Using device: cuda:0

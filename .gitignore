@@ -4,3 +4,4 @@ __pycache__/
 data/
 /check_raw*
 /old_model_storage
+*.pth
