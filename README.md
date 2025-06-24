@@ -52,7 +52,7 @@ The fine-tuning is done or a certain number of epochs. After, the model with the
 
 The image below shows an overview of the fine-tune model.
 
-![alt text](fine-tune_pipeline.png)
+![alt text](figures/fine-tune_pipeline.png)
 
 ### Dataset, model and masking
 All logic behind instantiating the dataset is kept inside the checkDataset file. A wrapper for instantiating a DataLoader for this dataset can be found inside the datasets.py file. The model.py file contains the full model for the CNN-based autoencoder.
