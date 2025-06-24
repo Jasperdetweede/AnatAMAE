@@ -47,7 +47,7 @@ def getdataset(batch_size, augment_training_set=False, frac_of_training_data=1.0
         - finetune: means augment, but masking will not work correctly. 
         - frac_of_training_data: fraction of data returned from the training data. 
         
-        THE VAL SET IS ADDED TO THE TEST SET 
+        Note that the original validation set from the split file is added to the test set. 
 
         Returns: 
         - train_loader, test_loader

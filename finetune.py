@@ -265,7 +265,7 @@ def finetune():
 
             auc_figure(test_auc_list, epoch+1, repeat_folder_path)
 
-            # Early stopping
+            # Early stopping (not used during experiments)
             # if epochs_no_improve >= patience and epoch > 20:
             #     logging.info(f'Early stopping triggered after {epoch} epochs (no AUC improvement in {patience} epochs)')
             #     evaluation_output(test_auc_list, repeat_folder_path, 5)
