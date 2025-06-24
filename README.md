@@ -62,7 +62,7 @@ All masking is handled by the mask_batch function inside the masking.py file.
 ### Others 
 The repository also contains a file called sample_dataset, which will count the items inside the dataset, and show a parameterized number of samples from the dataset.
 
-Lastly, the utils.py file is used to 
+Lastly, the utils.py file is used for plotting and saving figures, and setting the seed and logger.
 
 ## Credits: 
 - The codebase architecture was adapted from https://github.com/JJLi0427/CNN_Masked_Autoencoder
