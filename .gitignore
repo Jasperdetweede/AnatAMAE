@@ -1,0 +1,7 @@
+# Ignore virtual environment and pycache
+.venv/
+__pycache__/
+data/
+/check_raw*
+/old_model_storage
+*.pth
