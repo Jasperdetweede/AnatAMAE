@@ -67,3 +67,4 @@ Lastly, the utils.py file is used for plotting and saving figures, and setting t
 ## Credits: 
 - The codebase architecture was adapted from https://github.com/JJLi0427/CNN_Masked_Autoencoder
 - Special thanks to Gijs van Tulder and Jesse Krijthe for both the guidance and providing the CHECK dataset and example notebooks on which the preprocessing was based.
+- LLMs were used during coding to assist in the creation of very niche functionality, and to quickly generate method descriptions.
